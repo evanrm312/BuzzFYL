@@ -15,12 +15,18 @@ $("label").textContent = `${brain.label}. Every feed/escape decision is a lookup
 const scales: Record<Group, number[]> = { bitter: brain.levels.bitterScale, loomGf: brain.levels.loomGfScale };
 const base0 = baselineLevels(scales);
 
-let campaign: Campaign = newCampaign({
-  sugarHz: 100,
-  bitterLevel: base0.bitter,
-  loomGfLevel: base0.loomGf,
-  policy: { bitter: "conservative", loomGf: "conservative" },
-});
+// ?seed=7&wave=1 jumps straight to a demo encounter
+const params = new URLSearchParams(location.search);
+let campaign: Campaign = newCampaign(
+  {
+    sugarHz: 100,
+    bitterLevel: base0.bitter,
+    loomGfLevel: base0.loomGf,
+    policy: { bitter: "conservative", loomGf: "conservative" },
+  },
+  Number(params.get("seed") ?? 1),
+);
+campaign.waveIndex = Math.min(3, Math.max(0, Number(params.get("wave") ?? 0)));
 let sim: Sim | null = null;
 let last: RunRecord | null = null;
 let paused = false;

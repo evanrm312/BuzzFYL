@@ -22,6 +22,7 @@ export interface WaveDef {
   question: string;
   duration: number;
   budget: number;
+  energyDrain?: number; // per second; GAME.energyDrainPerS when absent
   phases: { from: number; label: string }[];
   food: { at: number; kind: FoodKind }[];
   threats: { at: number; ramp: RampName }[];
@@ -39,17 +40,17 @@ export const WAVES: Record<WaveId, WaveDef> = {
     id: "feeding",
     title: "Wave 1 — Feeding",
     question: "How readily should bitter experience change acceptance?",
-    duration: 50,
-    budget: 3,
+    duration: 56,
+    budget: 4,
     phases: [
       { from: 0, label: "Clean food" },
       { from: 10, label: "Bitter but safe" },
-      { from: 32, label: "Bitter, some poisoned" },
+      { from: 30, label: "Bitter, mostly poisoned" },
     ],
     food: [
-      ...every(1, 10, 4).map((at) => ({ at, kind: "clean" as const })),
-      ...every(10, 32, 3).map((at) => ({ at, kind: "safe_bitter" as const })),
-      ...every(32, 48, 2.5).map((at, i) => ({ at, kind: (i % 3 === 1 ? "safe_bitter" : "poison_bitter") as FoodKind })),
+      ...every(1, 9, 4).map((at) => ({ at, kind: "clean" as const })),
+      ...every(9, 30, 2.6).map((at) => ({ at, kind: "safe_bitter" as const })),
+      ...every(30, 54, 2.0).map((at, i) => ({ at, kind: (i % 3 === 2 ? "safe_bitter" : "poison_bitter") as FoodKind })),
     ],
     threats: [],
     feedback: [
@@ -61,8 +62,9 @@ export const WAVES: Record<WaveId, WaveDef> = {
     id: "threats",
     title: "Wave 2 — Threats",
     question: "Can reduced threat sensitivity keep meals going without losing the escape?",
-    duration: 50,
+    duration: 53,
     budget: 3,
+    energyDrain: 3.0,
     phases: [
       { from: 0, label: "Harmless shadows" },
       { from: 22, label: "Real swats" },
@@ -71,12 +73,11 @@ export const WAVES: Record<WaveId, WaveDef> = {
     threats: [
       ...every(3, 22, 4).map((at) => ({ at, ramp: "shadow" as RampName })),
       { at: 23, ramp: "swat_slow" },
-      { at: 28, ramp: "shadow" },
       { at: 32, ramp: "swat_fast" },
       { at: 37, ramp: "swat_snap" },
-      { at: 41, ramp: "shadow" },
       { at: 44, ramp: "swat_fast" },
       { at: 47, ramp: "swat_snap" },
+      { at: 50, ramp: "swat_snap" },
     ],
     feedback: [
       "A shadow that passes without contact is labelled harmless by the game when it ends.",
@@ -89,6 +90,7 @@ export const WAVES: Record<WaveId, WaveDef> = {
     question: "How do interruptions change what the fly gets to learn from?",
     duration: 55,
     budget: 4,
+    energyDrain: 2.4,
     phases: [
       { from: 0, label: "Bitter meals under shadows" },
       { from: 25, label: "Poison and swats" },
@@ -152,7 +154,7 @@ export function buildSchedule(wave: WaveDef, seed: number): { servings: Serving[
       kind: f.kind,
       ...pos(),
       spawnAt: f.at + jitter,
-      expiresAt: f.at + jitter + 14,
+      expiresAt: f.at + jitter + 9,
       progress: 0,
       status: "pending",
       refusedUntil: 0,

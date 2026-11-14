@@ -18,7 +18,7 @@ export const CTRL = {
   contactRadius: 14,
   feedMn9Hz: 30, // MN9 at or above: feed
   escapeGfHz: 150, // Giant Fibre at or above: jump
-  servingSeconds: 2.0, // a serving takes this long at MN9 = 100 Hz
+  servingSeconds: 1.2, // a serving takes this long at MN9 = 100 Hz
   refuseAfterTicks: 2, // consecutive no-threat sub-threshold ticks before leaving a serving
   refuseRetrySeconds: 5,
   jumpDistance: 230,
@@ -31,11 +31,11 @@ export const CTRL = {
 export const GAME = {
   maxHealth: 100,
   maxEnergy: 100,
-  startEnergy: 55,
+  startEnergy: 50,
   energyDrainPerS: 2.0,
   servingEnergy: 22,
   poisonDamage: 30,
-  swatDamage: 35,
+  swatDamage: 40,
   fogDamage: 25,
 } as const;
 

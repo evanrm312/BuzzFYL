@@ -54,7 +54,7 @@ for (const wave of waves) {
   console.log("surv  cost  eaten poison hits falseJ adapt  build");
   const show = (r: (typeof rows)[0]) =>
     console.log(`${(r.surv * 100).toFixed(0).padStart(4)}% ${String(r.cost).padStart(4)} ${r.eaten.toFixed(1).padStart(6)} ${r.poison.toFixed(1).padStart(6)} ${r.hits.toFixed(1).padStart(4)} ${r.falseJumps.toFixed(1).padStart(6)} ${r.adapt.toFixed(1).padStart(5)}  ${label(r.cfg)}`);
-  rows.filter((r) => r.cost <= budget).slice(0, 12).forEach(show);
+  rows.filter((r) => r.cost <= budget).slice(0, Number(process.env.TOP ?? 12)).forEach(show);
   const inBudget = rows.filter((r) => r.cost <= budget);
   const winners = inBudget.filter((r) => r.surv >= 0.75);
   console.log(`in budget: ${inBudget.length}, ≥75% survival: ${winners.length}`);

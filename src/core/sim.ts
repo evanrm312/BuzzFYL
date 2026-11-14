@@ -197,7 +197,7 @@ export class Sim {
       }
     }
 
-    f.energy = Math.max(0, f.energy - GAME.energyDrainPerS * CTRL.dt);
+    f.energy = Math.max(0, f.energy - (this.wave.energyDrain ?? GAME.energyDrainPerS) * CTRL.dt);
 
     this.move();
     if (this.ticks % this.tickEvery === 0) this.decide();

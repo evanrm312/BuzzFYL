@@ -91,6 +91,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--workers", type=int, default=10)
     ap.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2])
+    ap.add_argument("--chunk", type=int, default=8, help="stimuli per task")
     args = ap.parse_args()
 
     N, W, groups, root_ids = eb.load_brain()
@@ -122,8 +123,9 @@ def main():
             todo = [st for st in stimuli
                     if not any(r["seed"] == seed for r in
                                export["conditions"].get(condition_id(sid, *st), {}).get("runs", []))]
-            if todo:
-                tasks.append((b_scale, l_scale, seed, todo))
+            # chunked so a lone leftover state still spreads across workers
+            for i in range(0, len(todo), args.chunk):
+                tasks.append((b_scale, l_scale, seed, todo[i:i + args.chunk]))
     print(f"{len(tasks)} tasks x up to {len(stimuli)} stimuli on {args.workers} workers", flush=True)
 
     with mp.get_context("fork").Pool(args.workers) as pool:
