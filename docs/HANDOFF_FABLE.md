@@ -26,11 +26,20 @@ and without writing a second simulation engine.
 
 1. **Single boss encounter only.** No waves 1–3 in the UI, since there isn't time for multiple
    levels. Use `WAVES.boss`. Waves 1–3 stay in the core but are unused.
-2. **Economy: not decided yet.** Evan asked what conflict 2 means. Plainly: the UI's point system
-   (8 points, sugar 0–2, free learning policies) and the core's (boss budget 5, sugar 100/200 Hz,
-   responsive costs 1) differ. UI sugar level 0 would mean no sugar input, and the fly could
-   never eat. Proposed: adopt the UI economy, treat UI sugar 1 = 100 Hz and 2 = 200 Hz, and make
-   level 0 unavailable. Confirm with Evan before changing it.
+2. **Ownership split (resolves the economy question).** Aarush's UI governs how the app looks
+   and how the player moves through it: screens, copy, tabs, the 8-segment meter, sliders and
+   notebook. The core governs what the fly brain can do, meaning which settings exist, their
+   levels, costs and effects, based on what was actually measured. The markdown handoffs (v6
+   brief and the UI file's brain sections) are guidance, not rules. Concretely:
+   - Sugar exposes only the measured, playable inputs: 100 and 200 Hz, i.e. two levels. There is
+     no sugar 0, because the fly could never eat. The UI slider shows two steps.
+   - Bitter and threat levels are the core's 5-step weight scales (UI 0–4 already matches).
+   - Costs come from `buildCost` in `src/core/config.ts`. Each weight level moved costs 1, sugar
+     200 costs 2, and a responsive policy costs 1. Set the boss budget to **8** so the UI's
+     8-segment meter shows the real budget, then rebalance (decision 3) and adjust costs if a
+     single build dominates.
+   - The UI reads levels, costs and budget from the core. Don't hard-code the prototype formula
+     `sugar + |bitter−4| + |threat−2|`.
 3. **The primary goal is getting across.** Eggs are a bonus ("dopamine spike"), not the win
    condition. Change the core so `result = "survived"` means the fly is alive at the end **and**
    has reached the fruit (`metrics.reachedFruitAt !== null`). Eggs become a score shown on top.
