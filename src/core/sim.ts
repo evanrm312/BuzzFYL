@@ -77,6 +77,7 @@ export class Sim {
     drinks: 0,
     eggsLaid: 0,
     reachedFruitAt: null,
+    progress: 0,
   };
   result: RunRecord["result"] = "running";
   /** Latest lookup, for the live brain panel. */
@@ -208,13 +209,14 @@ export class Sim {
     f.hydration = Math.max(0, f.hydration - (this.wave.hydrationDrain ?? 0) * CTRL.dt);
 
     this.move();
+    this.trackProgress();
     if (this.ticks % this.tickEvery === 0) this.decide();
 
     if (f.health <= 0) this.result = "died_health";
     else if (f.energy <= 0) this.result = "died_energy";
     else if (f.hydration <= 0) this.result = "died_thirst";
     else if (this.t >= this.wave.duration)
-      this.result = this.metrics.eggsLaid >= (this.wave.eggTarget ?? 0) ? "survived" : "no_clutch";
+      this.result = !this.wave.fruit || this.metrics.reachedFruitAt !== null ? "survived" : "not_crossed";
   }
 
   private move(): void {
@@ -256,6 +258,17 @@ export class Sim {
       return;
     }
     this.walkTo(target);
+  }
+
+  /** Closest approach to the fruit as a fraction of the start → fruit distance; time elapsed on waves without a route. */
+  private trackProgress(): void {
+    const { start, fruit } = this.wave;
+    let p = this.t / this.wave.duration;
+    if (start && fruit) {
+      if (this.metrics.reachedFruitAt !== null) p = 1;
+      else p = Math.min(0.99, 1 - (dist(this.fly, fruit) - fruit.r) / (dist(start, fruit) - fruit.r));
+    }
+    this.metrics.progress = Math.max(this.metrics.progress, Math.min(1, Math.max(0, round(p))));
   }
 
   private walkTo(target: { x: number; y: number }): void {

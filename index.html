@@ -1,24 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Small Fly, Big Problem</title>
-  <style>
-    body { font: 14px system-ui, sans-serif; margin: 12px; background: #fafafa; color: #222; }
-    .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-start; }
-    .panel { background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 8px 10px; }
-    canvas { background: #f3efe2; border: 1px solid #ccc; border-radius: 6px; max-width: 100%; }
-    label { display: block; margin: 4px 0; }
-    #log { height: 180px; overflow: auto; font: 12px ui-monospace, monospace; width: 520px; }
-    .muted { color: #777; font-size: 12px; }
-    pre { white-space: pre-wrap; font-size: 12px; margin: 0; }
-    button { margin: 2px; }
-  </style>
+  <title>BuzzFYL • Picnic lab</title>
+  <link rel="stylesheet" href="/ui/dist/style.css" />
 </head>
 <body>
-  <p class="muted">Dev harness — functional placeholder for Aarush's screens. <span id="label"></span></p>
   <div id="app"></div>
-  <script type="module" src="/src/main.ts"></script>
+  <!-- Approved BuzzFYL UI, wired to src/core. The plain dev harness is at /dev.html. -->
+  <script type="module" src="/ui/dist/app.js"></script>
 </body>
 </html>

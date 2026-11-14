@@ -5,7 +5,7 @@
 import type { BuildConfig, Group, Policy } from "./types";
 
 export const CORE_VERSION = "core-0.6.0";
-export const CONTROLLER_VERSION = "body-2";
+export const CONTROLLER_VERSION = "body-3";
 export const LEARNING_RULE_VERSION = "event-step-1";
 export const NEURAL_SEED_POLICY = "replicate = hash(worldSeed, decisionKey) mod availableSeeds";
 

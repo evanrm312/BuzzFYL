@@ -27,7 +27,6 @@ export interface WaveDef {
   needsWater?: boolean; // every state must also have the water lattice measured
   start?: { x: number; y: number };
   fruit?: { x: number; y: number; r: number }; // egg-laying site; the route's destination
-  eggTarget?: number; // eggs needed to count the level as won (a clutch)
   candles?: { x: number; y: number }[]; // citronella candles: food beside them is coated
   foodLife?: number; // seconds a serving stays out (default 9)
   phases: { from: number; label: string }[];
@@ -122,15 +121,14 @@ export const WAVES: Record<WaveId, WaveDef> = {
   boss: {
     id: "boss",
     title: "Boss — Across the Picnic",
-    question: "Can the fly cross the picnic, refuel, and lay her eggs on the fruit before the fogger?",
+    question: "Can the fly get across the picnic to the fruit and stay alive while Mack fogs it?",
     duration: 75,
-    budget: 5,
+    budget: 8,
     energyDrain: 1.8,
     hydrationDrain: 1.2,
     needsWater: true,
     start: { x: 50, y: 250 },
     fruit: { x: 735, y: 250, r: 45 },
-    eggTarget: 4,
     candles: [{ x: 330, y: 140 }, { x: 330, y: 360 }, { x: 470, y: 250 }],
     foodLife: 12,
     phases: [
@@ -164,7 +162,7 @@ export const WAVES: Record<WaveId, WaveDef> = {
       { at: 73, ramp: "swat_fast" },
     ],
     feedback: [
-      "Goal: reach the fruit bowl and lay eggs; score is eggs laid. Walking route and egg laying are authored.",
+      "Goal: get across to the fruit bowl and be alive at the end. Eggs laid on the fruit are a bonus score. Walking route and egg laying are authored.",
       "Citronella-coated food is bitter to the fly (contact-repellent proxy through bitter taste cells) but safe; fogger bait is bitter and poisoned. Same input, different consequence.",
       "Water droplets and soda spills are read through water taste cells; plain water only weakly drives MN9, so drinking is slow.",
       "Fog bursts land like a slow swat at the fruit: damage unless the fly has jumped clear.",

@@ -4,6 +4,14 @@ Written 2026-11-14 13:38 ET by the session that built the v6 core. Target: demo-
 demos 2:45. Repo: `~/Projects/fly-brain`, branch **`v6-core`** (main has only the scaffold).
 Evan owns the codebase; commits go on `v6-core` with **no Claude co-author line** (Evan's rule).
 
+## Status 14:05: integration done
+
+The UI is wired to the core (`index.html` → `ui/dist/app.js`), decisions 1–4 are implemented, the boss
+matrix was rerun at budget 8 and `docs/DEMO.md` has the new seed-7 picks. See "Where the UI lives" in
+`docs/CORE_CONTRACT.md`. Not done: a human click-through in a real browser (only headless screenshots
+and the stubbed-DOM smoke test), narrow-screen check, backup recording. Everything below is the
+original brief, kept for context.
+
 ## Read these first, in order
 
 1. `~/Downloads/BUZZFYL_COMPLETE_CLAUDE_HANDOFF.md` (4.7 MB): Aarush's approved UI and design

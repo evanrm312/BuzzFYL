@@ -4,7 +4,7 @@ import { frozenTwin, runPair } from "../src/core/compare";
 import type { Policy, WaveId } from "../src/core/types";
 import { loadBrain } from "./load";
 
-const brain = loadBrain();
+const brain = loadBrain(process.env.BRAIN);
 const [wave, sugar, b, l, pb, pl] = process.argv.slice(2);
 const cfg = { sugarHz: Number(sugar) as 100 | 200, bitterLevel: Number(b), loomGfLevel: Number(l), policy: { bitter: pb as Policy, loomGf: pl as Policy } };
 for (let seed = 1; seed <= 12; seed++) {

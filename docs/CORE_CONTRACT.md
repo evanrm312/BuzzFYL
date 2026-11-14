@@ -24,8 +24,9 @@ Unavailable states must be shown disabled ("not measured yet"), never as zero.
 | `loomGfLevel` | index into `loomGfScale` | Starting weight of looming → Giant Fibre synapses |
 | `policy.bitter`, `policy.loomGf` | `frozen` \| `conservative` (3 events) \| `responsive` (1 event) | Readiness to change |
 
-Cost: `buildCost(cfg, campaign.base)` vs `WAVES[wave].budget`. Each level moved costs 1, sugar 200
-costs 2, each responsive policy costs 1. Balance numbers, not final.
+Cost: `buildCost(cfg, base)` vs `WAVES[wave].budget` (boss: 8, shown on the UI's 8-segment meter). Each
+level moved costs 1, sugar 200 costs 2, each responsive policy costs 1. The UI reads levels, costs and
+budget from the core and offers responsive/conservative only (frozen is used for the comparison twin).
 
 ## Live run
 
@@ -40,9 +41,11 @@ Read each frame: `sim.t`, `sim.phase`, `sim.fly` (x, y, heading, health, energy,
 evidence {direction, count}, threshold), `sim.brainState`, `sim.lastDecision` (readouts +
 plain-words `reason`), `sim.metrics`, `sim.done`, `sim.result`. Arena is 800×500 units (`ARENA`).
 
-Boss level (`WAVES.boss`, finale after waves 1–3): `wave.start`, `wave.fruit` {x, y, r} (egg site and
+Boss level (`WAVES.boss`, the single encounter the UI ships; waves 1–3 stay in the core, unused): `wave.start`, `wave.fruit` {x, y, r} (egg site and
 route destination), `wave.candles` [{x, y}], `fly.hydration`, `metrics.eggsLaid`, `metrics.drinks`,
-`metrics.reachedFruitAt`. Serving kinds: `clean`, `safe_bitter`, `poison_bitter`, `citronella`
+`metrics.reachedFruitAt`, `metrics.progress` (0–1, closest approach to the fruit; 1 only once reached).
+Result: `survived` = alive at the end **and** reached the fruit; `not_crossed` = alive but never got there;
+eggs are a bonus score. Serving kinds: `clean`, `safe_bitter`, `poison_bitter`, `citronella`
 (coated food beside a candle: bitter input, safe), `water`, `soda` (sugar + water). Result can be
 `died_thirst`. A boss build must pass `brain.stateAvailable(state, true)` (water lattice measured).
 
@@ -71,3 +74,10 @@ trajectory, metrics, result). Save with `saveAttempt(record, prediction)` (faile
   authored. Feeding (MN9) and escape (Giant Fibre) come from the brain.
 - A jump is a "jump", not a "dodge". `attacksEscaped` = jumped and the strike missed.
 - MDN is displayed but drives nothing (no useful response at tested inputs).
+
+## Where the UI lives
+
+`index.html` → `ui/dist/app.js` + `ui/dist/style.css` (Aarush's BuzzFYL screens, extracted from his handoff,
+wired to the core; no second simulation). `dev.html` is the plain harness. `?seed=N` picks the picnic
+(default 7). `?view=workbench|notebook|tutorial|live&t=30|results|compare` opens a screen directly.
+`npx tsx scripts/uismoke.ts "?view=results"` loads the UI against a stubbed DOM to catch runtime errors.

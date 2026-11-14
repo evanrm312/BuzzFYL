@@ -151,6 +151,7 @@ export interface Metrics {
   drinks: number;
   eggsLaid: number;
   reachedFruitAt: number | null;
+  progress: number; // 0..1, closest approach to the fruit (1 only once reached); elapsed fraction on route-less waves
 }
 
 export interface RunRecord {
@@ -167,6 +168,7 @@ export interface RunRecord {
   decisions: Decision[];
   trajectory: { t: number; group: Group; level: number; scale: number }[];
   metrics: Metrics;
-  result: "survived" | "no_clutch" | "died_health" | "died_energy" | "died_thirst" | "running";
+  // survived = alive at the end AND reached the fruit; not_crossed = alive but never got there
+  result: "survived" | "not_crossed" | "died_health" | "died_energy" | "died_thirst" | "running";
   duration: number;
 }
