@@ -75,3 +75,5 @@ button{border:1.5px solid #5b6a69;border-radius:4px;box-shadow:0 2px 0 #b8b49f;f
 .brain{height:auto!important;max-height:none!important}
 .monitor{overflow:visible}
 .replay-play{font-size:12px;padding:6px 12px;margin-left:12px;vertical-align:middle}
+.change{font-size:17px;margin:10px 0;padding:10px 14px;background:#d6e2dc;border-left:5px solid #c9768c;animation:book-open .3s ease-out}
+.change b{font-size:22px;color:#435b70;font-variant-numeric:tabular-nums}
