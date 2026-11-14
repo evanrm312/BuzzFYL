@@ -1,0 +1,1814 @@
+{
+ "meta": {
+  "dnp09_root_ids": [
+   "720575940635872101",
+   "720575940627652358"
+  ],
+  "looming_to_gf_weight": 1885.0,
+  "all_excitatory_to_gf_weight": 4752.0
+ },
+ "results": [
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 0,
+   "wall_seconds": 14.85
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 133,
+   "wall_seconds": 19.89
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 5.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 296,
+   "wall_seconds": 20.94
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 100.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 419,
+   "wall_seconds": 21.25
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 265.0,
+    "mdn": 16.25,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1296,
+   "wall_seconds": 22.26
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 170.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 761,
+   "wall_seconds": 23.12
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 5
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 7.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 260,
+   "wall_seconds": 16.21
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 10
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 27.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 363,
+   "wall_seconds": 17.4
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 0,
+    "looming": 5
+   },
+   "readouts_hz": {
+    "mn9": 75.0,
+    "giant_fibre": 12.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 605,
+   "wall_seconds": 19.17
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 5
+   },
+   "readouts_hz": {
+    "mn9": 115.0,
+    "giant_fibre": 7.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 687,
+   "wall_seconds": 20.23
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 0,
+    "looming": 10
+   },
+   "readouts_hz": {
+    "mn9": 60.0,
+    "giant_fibre": 20.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 714,
+   "wall_seconds": 19.67
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 10
+   },
+   "readouts_hz": {
+    "mn9": 105.0,
+    "giant_fibre": 27.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 796,
+   "wall_seconds": 22.14
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 80.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 510,
+   "wall_seconds": 18.43
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 55.0,
+    "giant_fibre": 65.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 840,
+   "wall_seconds": 20.34
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 125.0,
+    "giant_fibre": 75.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 904,
+   "wall_seconds": 20.53
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 30
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 110.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 590,
+   "wall_seconds": 20.25
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 0,
+    "looming": 30
+   },
+   "readouts_hz": {
+    "mn9": 55.0,
+    "giant_fibre": 112.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 895,
+   "wall_seconds": 20.77
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 30
+   },
+   "readouts_hz": {
+    "mn9": 90.0,
+    "giant_fibre": 110.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 987,
+   "wall_seconds": 22.7
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 40
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 132.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 686,
+   "wall_seconds": 20.32
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 0,
+    "looming": 40
+   },
+   "readouts_hz": {
+    "mn9": 10.0,
+    "giant_fibre": 142.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 926,
+   "wall_seconds": 20.59
+  },
+  {
+   "variant": "baseline",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 40
+   },
+   "readouts_hz": {
+    "mn9": 110.0,
+    "giant_fibre": 140.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1058,
+   "wall_seconds": 20.44
+  },
+  {
+   "variant": "bitter_x0.0",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 65.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 414,
+   "wall_seconds": 18.99
+  },
+  {
+   "variant": "bitter_x0.0",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 85.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 458,
+   "wall_seconds": 19.24
+  },
+  {
+   "variant": "bitter_x0.25",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 40.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 399,
+   "wall_seconds": 18.07
+  },
+  {
+   "variant": "bitter_x0.25",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 65.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 467,
+   "wall_seconds": 19.08
+  },
+  {
+   "variant": "bitter_x0.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 195,
+   "wall_seconds": 18.75
+  },
+  {
+   "variant": "bitter_x0.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 40.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 422,
+   "wall_seconds": 18.76
+  },
+  {
+   "variant": "bitter_x0.75",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 212,
+   "wall_seconds": 18.66
+  },
+  {
+   "variant": "bitter_x0.75",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 5.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 310,
+   "wall_seconds": 19.1
+  },
+  {
+   "variant": "loom_gf_x0.0",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 17.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 497,
+   "wall_seconds": 17.75
+  },
+  {
+   "variant": "loom_gf_x0.0",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 60.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 778,
+   "wall_seconds": 19.27
+  },
+  {
+   "variant": "loom_gf_x0.0",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 110.0,
+    "giant_fibre": 12.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 878,
+   "wall_seconds": 19.4
+  },
+  {
+   "variant": "loom_gf_x0.0",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 125.0,
+    "giant_fibre": 52.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1103,
+   "wall_seconds": 20.35
+  },
+  {
+   "variant": "loom_gf_x0.0",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 75.0,
+    "mdn": 20.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1278,
+   "wall_seconds": 21.77
+  },
+  {
+   "variant": "loom_gf_x0.0",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 55.0,
+    "mdn": 21.25,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1554,
+   "wall_seconds": 19.47
+  },
+  {
+   "variant": "loom_gf_x0.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 42.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 508,
+   "wall_seconds": 17.71
+  },
+  {
+   "variant": "loom_gf_x0.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 112.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 775,
+   "wall_seconds": 18.56
+  },
+  {
+   "variant": "loom_gf_x0.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 200.0,
+    "mdn": 17.5,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1273,
+   "wall_seconds": 20.15
+  },
+  {
+   "variant": "loom_gf_x0.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 130.0,
+    "giant_fibre": 35.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 900,
+   "wall_seconds": 19.88
+  },
+  {
+   "variant": "loom_gf_x1.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 92.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 522,
+   "wall_seconds": 18.12
+  },
+  {
+   "variant": "loom_gf_x0.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 190.0,
+    "mdn": 30.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1566,
+   "wall_seconds": 20.31
+  },
+  {
+   "variant": "loom_gf_x0.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 105.0,
+    "giant_fibre": 112.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1106,
+   "wall_seconds": 20.86
+  },
+  {
+   "variant": "loom_gf_x1.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 200.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 759,
+   "wall_seconds": 19.93
+  },
+  {
+   "variant": "loom_all_x0.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 30.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 409,
+   "wall_seconds": 17.7
+  },
+  {
+   "variant": "loom_gf_x1.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 307.5,
+    "mdn": 10.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1291,
+   "wall_seconds": 20.53
+  },
+  {
+   "variant": "loom_gf_x1.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 100.0,
+    "giant_fibre": 95.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 898,
+   "wall_seconds": 19.66
+  },
+  {
+   "variant": "loom_gf_x1.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 115.0,
+    "giant_fibre": 195.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1120,
+   "wall_seconds": 20.18
+  },
+  {
+   "variant": "loom_gf_x1.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 307.5,
+    "mdn": 26.25,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1572,
+   "wall_seconds": 20.24
+  },
+  {
+   "variant": "loom_all_x0.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 92.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 540,
+   "wall_seconds": 19.02
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 0,
+   "wall_seconds": 14.29
+  },
+  {
+   "variant": "loom_all_x0.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 100.0,
+    "giant_fibre": 85.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 929,
+   "wall_seconds": 20.08
+  },
+  {
+   "variant": "loom_all_x0.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 207.5,
+    "mdn": 1.25,
+    "dnp09": 0.0
+   },
+   "neurons_active": 914,
+   "wall_seconds": 20.86
+  },
+  {
+   "variant": "loom_all_x0.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 95.0,
+    "giant_fibre": 20.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 828,
+   "wall_seconds": 20.75
+  },
+  {
+   "variant": "loom_all_x0.5",
+   "seed": 0,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 70.0,
+    "giant_fibre": 205.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1215,
+   "wall_seconds": 20.57
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 120.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 442,
+   "wall_seconds": 20.97
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 5
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 7.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 254,
+   "wall_seconds": 16.47
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 305,
+   "wall_seconds": 21.53
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 149,
+   "wall_seconds": 20.08
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 167.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 758,
+   "wall_seconds": 21.89
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 270.0,
+    "mdn": 22.5,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1328,
+   "wall_seconds": 23.12
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 0,
+    "looming": 5
+   },
+   "readouts_hz": {
+    "mn9": 65.0,
+    "giant_fibre": 12.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 594,
+   "wall_seconds": 19.76
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 10
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 35.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 397,
+   "wall_seconds": 17.19
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 5
+   },
+   "readouts_hz": {
+    "mn9": 95.0,
+    "giant_fibre": 12.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 666,
+   "wall_seconds": 20.23
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 0,
+    "looming": 10
+   },
+   "readouts_hz": {
+    "mn9": 65.0,
+    "giant_fibre": 20.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 695,
+   "wall_seconds": 19.77
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 57.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 522,
+   "wall_seconds": 18.34
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 10
+   },
+   "readouts_hz": {
+    "mn9": 105.0,
+    "giant_fibre": 12.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 775,
+   "wall_seconds": 20.84
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 55.0,
+    "giant_fibre": 70.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 848,
+   "wall_seconds": 20.61
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 105.0,
+    "giant_fibre": 72.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 901,
+   "wall_seconds": 21.12
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 30
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 105.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 580,
+   "wall_seconds": 20.89
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 0,
+    "looming": 30
+   },
+   "readouts_hz": {
+    "mn9": 40.0,
+    "giant_fibre": 105.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 873,
+   "wall_seconds": 20.45
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 30
+   },
+   "readouts_hz": {
+    "mn9": 90.0,
+    "giant_fibre": 117.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 998,
+   "wall_seconds": 20.38
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 40
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 135.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 663,
+   "wall_seconds": 20.31
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 0,
+    "looming": 40
+   },
+   "readouts_hz": {
+    "mn9": 35.0,
+    "giant_fibre": 137.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 918,
+   "wall_seconds": 19.99
+  },
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 40
+   },
+   "readouts_hz": {
+    "mn9": 80.0,
+    "giant_fibre": 132.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1058,
+   "wall_seconds": 19.87
+  },
+  {
+   "variant": "bitter_x0.0",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 50.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 403,
+   "wall_seconds": 17.98
+  },
+  {
+   "variant": "bitter_x0.0",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 115.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 458,
+   "wall_seconds": 18.07
+  },
+  {
+   "variant": "bitter_x0.25",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 15.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 360,
+   "wall_seconds": 17.37
+  },
+  {
+   "variant": "bitter_x0.25",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 70.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 463,
+   "wall_seconds": 18.54
+  },
+  {
+   "variant": "bitter_x0.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 210,
+   "wall_seconds": 17.62
+  },
+  {
+   "variant": "bitter_x0.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 35.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 431,
+   "wall_seconds": 18.96
+  },
+  {
+   "variant": "bitter_x0.75",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 100,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 214,
+   "wall_seconds": 18.64
+  },
+  {
+   "variant": "loom_gf_x0.0",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 17.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 520,
+   "wall_seconds": 17.38
+  },
+  {
+   "variant": "bitter_x0.75",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 200,
+    "looming": 0
+   },
+   "readouts_hz": {
+    "mn9": 5.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 327,
+   "wall_seconds": 18.88
+  },
+  {
+   "variant": "loom_gf_x0.0",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 60.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 764,
+   "wall_seconds": 19.28
+  },
+  {
+   "variant": "loom_gf_x0.0",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 67.5,
+    "mdn": 20.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1339,
+   "wall_seconds": 21.4
+  },
+  {
+   "variant": "loom_gf_x0.0",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 105.0,
+    "giant_fibre": 12.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 904,
+   "wall_seconds": 20.38
+  },
+  {
+   "variant": "loom_gf_x0.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 35.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 526,
+   "wall_seconds": 18.41
+  },
+  {
+   "variant": "loom_gf_x0.0",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 115.0,
+    "giant_fibre": 52.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1110,
+   "wall_seconds": 20.32
+  },
+  {
+   "variant": "loom_gf_x0.0",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 57.5,
+    "mdn": 28.75,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1481,
+   "wall_seconds": 21.43
+  },
+  {
+   "variant": "loom_gf_x0.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 117.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 790,
+   "wall_seconds": 20.59
+  },
+  {
+   "variant": "loom_gf_x0.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 200.0,
+    "mdn": 22.5,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1364,
+   "wall_seconds": 21.74
+  },
+  {
+   "variant": "loom_gf_x0.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 95.0,
+    "giant_fibre": 45.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 899,
+   "wall_seconds": 20.55
+  },
+  {
+   "variant": "loom_gf_x0.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 95.0,
+    "giant_fibre": 117.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1119,
+   "wall_seconds": 21.27
+  },
+  {
+   "variant": "loom_gf_x1.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 90.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 518,
+   "wall_seconds": 18.46
+  },
+  {
+   "variant": "loom_gf_x0.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 197.5,
+    "mdn": 30.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1483,
+   "wall_seconds": 21.85
+  },
+  {
+   "variant": "loom_gf_x1.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 207.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 754,
+   "wall_seconds": 20.29
+  },
+  {
+   "variant": "loom_gf_x1.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 310.0,
+    "mdn": 20.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1339,
+   "wall_seconds": 21.65
+  },
+  {
+   "variant": "loom_all_x0.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 27.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 417,
+   "wall_seconds": 18.77
+  },
+  {
+   "variant": "loom_gf_x1.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 90.0,
+    "giant_fibre": 95.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 916,
+   "wall_seconds": 21.34
+  },
+  {
+   "variant": "loom_gf_x1.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 85.0,
+    "giant_fibre": 205.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1133,
+   "wall_seconds": 22.18
+  },
+  {
+   "variant": "loom_gf_x1.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 307.5,
+    "mdn": 26.25,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1505,
+   "wall_seconds": 22.4
+  },
+  {
+   "variant": "loom_all_x0.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 80.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 545,
+   "wall_seconds": 21.34
+  },
+  {
+   "variant": "loom_all_x0.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 0,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 0.0,
+    "giant_fibre": 202.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 882,
+   "wall_seconds": 17.83
+  },
+  {
+   "variant": "loom_all_x0.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 20
+   },
+   "readouts_hz": {
+    "mn9": 110.0,
+    "giant_fibre": 20.0,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 814,
+   "wall_seconds": 14.04
+  },
+  {
+   "variant": "loom_all_x0.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 50
+   },
+   "readouts_hz": {
+    "mn9": 105.0,
+    "giant_fibre": 72.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 940,
+   "wall_seconds": 13.49
+  },
+  {
+   "variant": "loom_all_x0.5",
+   "seed": 1,
+   "stimulus_hz": {
+    "sugar": 200,
+    "bitter": 0,
+    "looming": 150
+   },
+   "readouts_hz": {
+    "mn9": 40.0,
+    "giant_fibre": 192.5,
+    "mdn": 0.0,
+    "dnp09": 0.0
+   },
+   "neurons_active": 1208,
+   "wall_seconds": 12.07
+  }
+ ]
+}

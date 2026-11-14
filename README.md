@@ -1,22 +1,30 @@
-# Fly FYL (Fly For Your Life)
+# Small Fly, Big Problem
 
-A cute, chaotic 2D top-down picnic survival game. You steer the fly; a precomputed
-simulation of the whole fruit-fly brain (138,639 neurons, FlyWire v783) owns its reflexes:
-whether it eats or refuses food, and whether it auto-dodges an incoming swat.
-Every skill-tree upgrade is a real lesion or stimulation experiment on that brain.
+An autonomous picnic-survival experiment game on a precomputed simulation of the whole
+fruit-fly brain (138,639 neurons, FlyWire v783). The player never steers. They set the fly's
+starting connectivity (bitter-cell output weight, looming→Giant Fibre weight, sugar input) and
+a learning policy, release it, and inspect what happened. During a run, game-defined feedback
+moves those real synapse weights one level at a time (authored learning applied to real
+connectivity); every feed/escape decision is a lookup of a real model run at the current weights.
 
-Stack: TypeScript + Phaser 3 + Vite (game), Python + numpy (brain precompute).
+Stack: TypeScript + Vite (game), Python + numpy (brain precompute). Design brief: v6 handoff.
 
 ## Layout
 
-| Path | Owner | What |
-|---|---|---|
-| `docs/` | all | Design handoff and project goals |
-| `notebooks/export_brain.py` | Neural | Runs the Shiu LIF model over the stimulus × preset grid |
-| `public/data/brain.json` | Neural | Precomputed lookup table the game reads |
-| `src/brain.ts` | Neural | Game-side adapter for `brain.json` (todo) |
-| `src/` (rest), package files | Core | Phaser game (todo) |
-| `src/ui/`, `src/art/`, `src/threats/` | Presentation | HUD, panels, procedural art (todo) |
+| Path | What |
+|---|---|
+| `notebooks/export_plastic.py` | 25 weight states × 48 stimuli × 3 seeds → `public/data/brain_plastic.json` |
+| `src/brain.ts` | Adapter: lookups, availability (a state is playable only when fully measured) |
+| `src/core/` | Headless sim, learning rule, waves, campaign/notebook, paired comparison |
+| `docs/CORE_CONTRACT.md` | What UI screens read and dispatch |
+| `src/main.ts`, `index.html` | Plain dev harness running the whole loop (placeholder for UI screens) |
+| `scripts/selftest.ts`, `scripts/balance.ts` | Invariants; build × seed sweep for dominant builds |
+
+```sh
+npm install && npm run dev       # play
+npm test                         # invariants against the real export
+npm run balance -- feeding 12    # sweep builds on one wave
+```
 
 ## Regenerating brain data
 

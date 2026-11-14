@@ -20,3 +20,4 @@ notebooks/.export.log
 .vscode/
 .idea/
 .DS_Store
+notebooks/.plastic.log
