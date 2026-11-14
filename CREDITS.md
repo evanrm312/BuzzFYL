@@ -11,10 +11,14 @@
   `fly_brain_starter.ipynb`, used unchanged apart from added spike-trace recording.
 
 ## What is measured vs authored
-- Measured: every MN9 / Giant Fibre / MDN rate in `public/data/brain.json` comes from an actual
-  simulation run. Nothing in it is hand-entered.
-- Authored (game rules): thresholds mapping rates to behavior, movement, dodge direction,
-  toxicity, HP/energy, wave design, and non-neural body upgrades.
+- Measured: every MN9 / Giant Fibre / MDN rate in `public/data/brain_plastic.json` comes from an actual
+  simulation run at that weight state. Nothing in it is hand-entered.
+- Authored (game rules): the learning rule, thresholds mapping rates to behavior, movement, jump
+  direction, poison, health/energy, eggs, levels, the shared swarm brain, and the score.
+
+## Design and assets
+- BuzzFYL UI, copy and illustration direction by Aarush. Fonts: Caveat (SIL OFL, `ui/dist/assets/CAVEAT-LICENSE.txt`)
+  and a Bookman-style display face from URW base35 (`ui/FONT-LICENSE`).
 
 ## AI disclosure
 Code in this repository was written with AI assistance (Claude Code / Claude Opus, plus other
