@@ -14,9 +14,10 @@ at the fly's current weights, and what happens to it moves those weights during 
 
 1. **Workbench** (30 s). Wave 1. Show the bitter weight's measured MN9 bars: sugar+bitter MN9
    ≈ 100 / 68 / 38 / 5 / 3 Hz at ×0 / .25 / .5 / .75 / 1. Pick sugar 100, bitter ×0.25, bitter learning responsive (cost 4/4). Enter a prediction.
-2. **Release** (45 s, 2× speed). Point at the brain panel: pending evidence fills on a safe
-   bitter meal, the weight steps ×0.5→×0.25, the next meal's lookup uses the new weight.
-   Then poison arrives: evidence flips, the weight steps back up.
+2. **Release** (45 s, 2× speed). Seed 7 as traced: first safe bitter meal (13 s) steps
+   bitter ×0.25→×0 and the next meals' lookups use ×0. Poison at 41 s and 44 s steps it
+   ×0→×0.25→×0.5; from then on MN9 is below 30 Hz on bitter food and the fly refuses it —
+   including one safe serving (the cost of adapting: the fly can't tell them apart).
 3. **Decisive event replay** (30 s). Open the update: stimulus in, condition ID, replicate seed,
    MN9/GF, action and its reason, feedback signal, evidence before/after, scale before/after.
 4. **Adaptive vs frozen** (30 s). Same seed, same start, same body controller. Show first
