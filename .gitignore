@@ -1,0 +1,22 @@
+# node / vite
+node_modules/
+dist/
+*.local
+
+# python
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+notebooks/.cache/
+notebooks/.export.log
+*.json.tmp
+
+# secrets (FlyWire token never goes in the repo)
+.env
+.env.*
+
+# editors / os
+.vscode/
+.idea/
+.DS_Store
