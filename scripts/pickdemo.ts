@@ -1,15 +1,14 @@
 // Find seeds where an adaptive build and its frozen twin end differently.
+//   npx tsx scripts/pickdemo.ts wave sugar bitterLevel loomLevel bitterPolicy threatPolicy
 import { frozenTwin, runPair } from "../src/core/compare";
-import type { BuildConfig, WaveId } from "../src/core/types";
+import type { Policy, WaveId } from "../src/core/types";
 import { loadBrain } from "./load";
 
 const brain = loadBrain();
-const cases: [WaveId, BuildConfig][] = [
-  ["feeding", { sugarHz: 100, bitterLevel: 1, loomGfLevel: 2, policy: { bitter: "responsive", loomGf: "frozen" } }],
-  ["threats", { sugarHz: 100, bitterLevel: 4, loomGfLevel: 2, policy: { bitter: "frozen", loomGf: "responsive" } }],
-];
-for (const [wave, cfg] of cases)
-  for (let seed = 1; seed <= 12; seed++) {
-    const [a, b] = runPair(brain, wave, seed, cfg, frozenTwin(cfg));
-    console.log(wave, seed, `adaptive ${a.result} hp ${100 - a.metrics.damageTaken} ate ${a.metrics.servingsCompleted} adapt ${a.metrics.adaptations}`, `| frozen ${b.result} ate ${b.metrics.servingsCompleted} poison ${b.metrics.poisonings} hits ${b.metrics.attacksHit} falseJ ${b.metrics.jumpsOnHarmless}`);
-  }
+const [wave, sugar, b, l, pb, pl] = process.argv.slice(2);
+const cfg = { sugarHz: Number(sugar) as 100 | 200, bitterLevel: Number(b), loomGfLevel: Number(l), policy: { bitter: pb as Policy, loomGf: pl as Policy } };
+for (let seed = 1; seed <= 12; seed++) {
+  const [a, f] = runPair(brain, wave as WaveId, seed, cfg, frozenTwin(cfg));
+  const m = (r: typeof a) => `${r.result.padEnd(12)} eggs ${r.metrics.eggsLaid} ate ${r.metrics.servingsCompleted} drank ${r.metrics.drinks} poison ${r.metrics.poisonings} hits ${r.metrics.attacksHit} falseJ ${r.metrics.jumpsOnHarmless} adapt ${r.metrics.adaptations}`;
+  console.log(`seed ${String(seed).padStart(2)} adaptive ${m(a)} | frozen ${m(f)}`);
+}

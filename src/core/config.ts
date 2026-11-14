@@ -18,6 +18,7 @@ export const CTRL = {
   contactRadius: 14,
   feedMn9Hz: 30, // MN9 at or above: feed
   drinkMn9Hz: 10, // MN9 at or above on water/soda: drink (water alone only reaches ~15-20 Hz)
+  drinkFullMn9Hz: 50, // drinking reaches full speed at this MN9 (soda); plain water ~20 Hz is slower
   escapeGfHz: 150, // Giant Fibre at or above: jump
   servingSeconds: 1.2, // a serving takes this long at MN9 = 100 Hz
   refuseAfterTicks: 2, // consecutive no-threat sub-threshold ticks before leaving a serving
@@ -28,7 +29,8 @@ export const CTRL = {
   threatRadius: 170, // inside this, the fly receives the threat's looming input
   hitRadius: 70,
   needLevel: 60, // boss route: detour for food/water below this, otherwise head for the fruit
-  eggSeconds: 2.0,
+  needLevelAtFruit: 30, // once laying, only leave the fruit when this low
+  eggSeconds: 1.5,
 } as const;
 
 export const GAME = {

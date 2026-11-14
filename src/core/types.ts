@@ -167,6 +167,6 @@ export interface RunRecord {
   decisions: Decision[];
   trajectory: { t: number; group: Group; level: number; scale: number }[];
   metrics: Metrics;
-  result: "survived" | "died_health" | "died_energy" | "died_thirst" | "running";
+  result: "survived" | "no_clutch" | "died_health" | "died_energy" | "died_thirst" | "running";
   duration: number;
 }

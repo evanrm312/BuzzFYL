@@ -40,7 +40,13 @@ Read each frame: `sim.t`, `sim.phase`, `sim.fly` (x, y, heading, health, energy,
 evidence {direction, count}, threshold), `sim.brainState`, `sim.lastDecision` (readouts +
 plain-words `reason`), `sim.metrics`, `sim.done`, `sim.result`. Arena is 800×500 units (`ARENA`).
 
-`fly.action`: `walking` · `feeding` · `suppressed` (on food, MN9 below threshold under a threat,
+Boss level (`WAVES.boss`, finale after waves 1–3): `wave.start`, `wave.fruit` {x, y, r} (egg site and
+route destination), `wave.candles` [{x, y}], `fly.hydration`, `metrics.eggsLaid`, `metrics.drinks`,
+`metrics.reachedFruitAt`. Serving kinds: `clean`, `safe_bitter`, `poison_bitter`, `citronella`
+(coated food beside a candle: bitter input, safe), `water`, `soda` (sugar + water). Result can be
+`died_thirst`. A boss build must pass `brain.stateAvailable(state, true)` (water lattice measured).
+
+`fly.action`: `walking` · `feeding` · `drinking` · `laying` · `suppressed` (on food, MN9 below threshold under a threat,
 no jump: **show separately from escaping**) · `refusing` · `escaping` · `idle`.
 
 ## After a run

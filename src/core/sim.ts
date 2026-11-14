@@ -213,7 +213,8 @@ export class Sim {
     if (f.health <= 0) this.result = "died_health";
     else if (f.energy <= 0) this.result = "died_energy";
     else if (f.hydration <= 0) this.result = "died_thirst";
-    else if (this.t >= this.wave.duration) this.result = "survived";
+    else if (this.t >= this.wave.duration)
+      this.result = this.metrics.eggsLaid >= (this.wave.eggTarget ?? 0) ? "survived" : "no_clutch";
   }
 
   private move(): void {
@@ -291,8 +292,10 @@ export class Sim {
   private pickServing(): Serving | null {
     const f = this.fly;
     const route = !!this.wave.fruit;
-    const needE = f.energy < CTRL.needLevel;
-    const needW = f.hydration < CTRL.needLevel;
+    const fr = this.wave.fruit;
+    const need = fr && dist(f, fr) <= fr.r ? CTRL.needLevelAtFruit : CTRL.needLevel;
+    const needE = f.energy < need;
+    const needW = f.hydration < need;
     let best: Serving | null = null;
     let bestD = Infinity;
     for (const s of this.servings) {
@@ -366,7 +369,8 @@ export class Sim {
       reason = `MN9 ${fmt(mn9)} Hz ≥ ${thr}: ${action}`;
       if (threat) reason += `; GF ${fmt(gf)} Hz < ${CTRL.escapeGfHz}: no jump`;
       this.refuseStreak = 0;
-      s!.progress = Math.min(1, s!.progress + (CTRL.decisionEvery * Math.min(mn9, 100)) / 100 / CTRL.servingSeconds);
+      const full = drink ? CTRL.drinkFullMn9Hz : 100; // MN9 at which a serving takes servingSeconds
+      s!.progress = Math.min(1, s!.progress + (CTRL.decisionEvery * Math.min(mn9, full)) / full / CTRL.servingSeconds);
       if (s!.progress >= 1) this.completeServing(s!);
     } else if (onFood && looming > 0) {
       action = "suppressed";

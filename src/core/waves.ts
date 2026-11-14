@@ -27,6 +27,7 @@ export interface WaveDef {
   needsWater?: boolean; // every state must also have the water lattice measured
   start?: { x: number; y: number };
   fruit?: { x: number; y: number; r: number }; // egg-laying site; the route's destination
+  eggTarget?: number; // eggs needed to count the level as won (a clutch)
   candles?: { x: number; y: number }[]; // citronella candles: food beside them is coated
   foodLife?: number; // seconds a serving stays out (default 9)
   phases: { from: number; label: string }[];
@@ -124,11 +125,12 @@ export const WAVES: Record<WaveId, WaveDef> = {
     question: "Can the fly cross the picnic, refuel, and lay her eggs on the fruit before the fogger?",
     duration: 75,
     budget: 5,
-    energyDrain: 2.2,
-    hydrationDrain: 1.6,
+    energyDrain: 1.8,
+    hydrationDrain: 1.2,
     needsWater: true,
     start: { x: 50, y: 250 },
     fruit: { x: 735, y: 250, r: 45 },
+    eggTarget: 4,
     candles: [{ x: 330, y: 140 }, { x: 330, y: 360 }, { x: 470, y: 250 }],
     foodLife: 12,
     phases: [
@@ -138,7 +140,7 @@ export const WAVES: Record<WaveId, WaveDef> = {
     ],
     food: [
       ...every(1, 22, 4).map((at) => ({ at, kind: "clean" as const, band: E })),
-      ...every(3, 22, 5).map((at) => ({ at, kind: "water" as const, band: E })),
+      ...every(2, 22, 4).map((at) => ({ at, kind: "water" as const, band: E })),
       ...every(22, 48, 3).map((at) => ({ at, kind: "citronella" as const, band: M })),
       ...every(24, 48, 4.5).map((at) => ({ at, kind: "poison_bitter" as const, band: M })),
       ...[26, 36, 46].map((at) => ({ at, kind: "water" as const, band: M })),
@@ -155,11 +157,11 @@ export const WAVES: Record<WaveId, WaveDef> = {
       { at: 33, ramp: "swat_fast" },
       { at: 37, ramp: "shadow" },
       { at: 41, ramp: "swat_snap" },
-      ...every(50, 74, 4).map((at) => ({ at, ramp: "fog" as RampName })),
+      ...every(50, 74, 5).map((at) => ({ at, ramp: "fog" as RampName })),
       { at: 54, ramp: "shadow" },
       { at: 58, ramp: "swat_snap" },
       { at: 66, ramp: "shadow" },
-      { at: 71, ramp: "swat_fast" },
+      { at: 73, ramp: "swat_fast" },
     ],
     feedback: [
       "Goal: reach the fruit bowl and lay eggs; score is eggs laid. Walking route and egg laying are authored.",

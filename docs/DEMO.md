@@ -33,6 +33,17 @@ Picked pairs (adaptive vs frozen twin, same seed):
 | 1 | 7 | sugar 100, bitter ×0.25 responsive | survives, 3 updates | dies: 4 poisonings |
 | 2 | 2 | baseline weights, threat responsive | survives, eats 11 | survives, eats 9, 5 jumps on harmless shadows |
 
+| Boss | 9 | sugar 100, both responsive | survives, 5 eggs (clutch) | misses the clutch: 3 eggs, 7 jumps on harmless shadows |
+| Boss | 5 | sugar 200, bitter responsive, threat conservative | **dies** after 11 eggs (learned to ignore looming, then swatted) | survives, 5 eggs |
+
+Boss pitch: the fly crosses the picnic to lay her eggs on the fruit. Water and citronella were
+new sims: water taste cells only weakly drive MN9 (slow drinking, measured); the aversive-smell
+route seized the model (~10k neurons), so citronella is a contact repellent through bitter cells.
+Show seed 9 (adaptation helps) and seed 5 (adaptation lays more eggs but gets the fly killed).
+Open `?seed=9&wave=3` and `?seed=5&wave=3`.
+
+Feature matrix (all 450 builds × 10 seeds × 4 waves): `docs/matrix/MATRIX.md`, CSVs alongside.
+
 Wave 2 tradeoff to narrate: at looming 50 Hz a harmless shadow and a fast swat give the same input.
 Lower threat weight stops false jumps but the fast swats hit; hits strengthen it back.
 
@@ -44,7 +55,8 @@ from the baseline brain, while the campaign budgets from the carried-over adapte
 - The learning rule is authored by us; the effect of each weight level is measured on the model.
 - Every lookup is a fresh 200 ms trial from rest; no spike/voltage history carries over.
 - Walking, jump direction, cooldowns, energy/poison, and safe/harmful labels are game mechanics.
-- Seed coverage is limited (seed 0 complete; more seeds where the export finished).
+- Seed coverage is limited (seed 0 complete incl. water; more seeds where the export finished).
+- Citronella is a proxy (bitter contact), not a smell; the smell route seized. Water drinking threshold (10 Hz) is ours.
 - DNp09 (forward walking) never fired in tested conditions, so walking is authored. MDN is shown but unused.
 
 ## Backup
