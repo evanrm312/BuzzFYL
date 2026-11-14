@@ -74,3 +74,4 @@ button{border:1.5px solid #5b6a69;border-radius:4px;box-shadow:0 2px 0 #b8b49f;f
 .score-table small{color:#715d41}
 .brain{height:auto!important;max-height:none!important}
 .monitor{overflow:visible}
+.replay-play{font-size:12px;padding:6px 12px;margin-left:12px;vertical-align:middle}

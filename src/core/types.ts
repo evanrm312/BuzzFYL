@@ -15,7 +15,7 @@ export interface BuildConfig {
   bitterLevel: number; // index into grid.bitter_scale
   loomGfLevel: number; // index into grid.loom_gf_scale
   policy: Record<Group, Policy>;
-  swarm?: number; // doublings of the starting pair on route levels: 0 → 2 flies … 3 → 16
+  swarm?: number; // points spent doubling the swarm on route levels: 0 → 1 fly, 1 → 2 … 4 → 16
 }
 
 export interface Evidence {

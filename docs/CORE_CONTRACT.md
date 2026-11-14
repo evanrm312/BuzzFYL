@@ -86,7 +86,7 @@ wired to the core; no second simulation). `dev.html` is the plain harness. `?see
 
 - **Levels**: `LEVELS = ["easy", "medium", "boss"]` in `waves.ts` (Garden Party, Citronella Row, Mack's Pest
   Control). Each has `fliesNeeded: 2`, `portions: 2` (a serving feeds two flies) and `obstacles` for the briefing.
-- **Swarm**: `BuildConfig.swarm` = doublings of the starting pair (`SWARM_SIZES` 2/4/8/16, 1 point each).
+- **Swarm**: `BuildConfig.swarm` = points spent on the swarm (`SWARM_SIZES` 1/2/4/8/16: one fly is free, each point doubles it).
   `sim.flies[]` holds every body; `sim.fly` is the lead fly. All flies share one set of weights, so any fly's
   experience trains the swarm (authored). 16 is the limit and a swarm of 16 cannot win (`SWARM_LIMIT`).
 - **Result**: `survived` = at least `fliesNeeded` flies alive, on the fruit and with an egg laid, and fewer

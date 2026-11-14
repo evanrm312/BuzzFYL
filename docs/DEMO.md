@@ -3,7 +3,7 @@
 Run the **pinned build**: `npm run build && npx vite preview` → `http://localhost:4173/`. The build copies
 the brain export at build time, so the background export cannot change outcomes mid-demo. (`npm run dev`
 on 5173 reads the live file; replicate picks shift as seed 1 fills in.) Picnic seed is 7 by default
-(`?seed=N` to change). Controller `body-5`. Picks below were checked against the committed snapshot
+(`?seed=N` to change). Controller `body-6`. Picks below were checked against the committed snapshot
 with `BRAIN=dist/data/brain_plastic.json npx tsx scripts/pickdemo.ts boss <sugar> <bitterLvl> <threatLvl> <pb> <pl>`.
 
 ## One-breath pitch
@@ -14,40 +14,40 @@ Every eat/drink/refuse/jump decision is a lookup of a real whole-brain run (Shiu
 at the fly's current weights, and what happens to it moves those weights during the run.
 Goal: reach the fruit and be alive when the encounter ends. Eggs are a bonus.
 
-## Sequence (~3 min), all on seed 7, two flies unless noted
+## Sequence (~5 min), all on seed 7
 
 Purpose in one line: breed a brain, not a fly. You tune real connectome weights, release a swarm that
-shares them, and watch which brains get two flies across to lay eggs. Score rewards eggs, health,
-few flies lost and points left unspent.
+shares them, and see which brains get two flies across to lay eggs.
 
-1. **Level 1 · Garden Party → Scout: basic model** (4×). Unmodified brain clears it (18 eggs). Point at the
-   brain map: nodes light with each lookup, the count in the middle is neurons that fired in that model run.
-2. **Level 2 · Citronella Row, Scout again.** Fails: the flies refuse every coated serving (sugar + bitter
-   MN9 ≈ 0 Hz) and one starves. The yellow haze marks where food tastes bitter.
-3. **Workbench.** Sugar 200 Hz, bitter ×0.5, leave the rest (4 points). The "Sugar + bitter" bar now clears
-   the 30 Hz line. Release: cleared, 21 eggs. **Compare Frozen Learning**: the frozen twin fails, because
-   the adaptive swarm's safe citronella meals weakened the shared bitter weight further. Learning helped.
-4. **Results → Replay the evidence**: input → measured MN9/GF → action → feedback → weight update, with the
-   brain map for that lookup.
-5. **Level 3 · Mack.** Scout is wiped out. Sugar 200, bitter ×0.25, threat ×1.5, both Conservative (7 points):
-   cleared, 16 eggs. Same build with threat learning Responsive (8 points): wiped out, frozen twin survives.
-   Learning hurt.
-6. **Swarm** (if time): each point doubles the swarm; they share food, each lost fly costs 100, and 16
-   flies is the limit and cannot win.
-7. **Limitations** (20 s), below.
+Budget is 8 points. One fly is free; each point doubles the swarm (2, 4, 8, 16), so every clear spends
+at least 1 point on a second fly. "Scout: basic model" releases the unmodified brain with 2 flies.
+
+1. **Level 1 · Garden Party → Scout** (4×). Clears, 18 eggs. Point at the brain map: nodes light with each
+   lookup; the number in the middle is neurons that fired in that model run.
+2. **Level 2 · Citronella Row → Scout.** Fails: the flies refuse every coated serving (sugar + bitter MN9
+   ≈ 0 Hz, below the 30 Hz feed line) and starve. Yellow haze = food tastes bitter there.
+3. **Workbench.** Swarm 2 flies, sugar 200 Hz, bitter ×0.5 (5 points). "Sugar + bitter" now clears 30 Hz.
+   Release: cleared, 21 eggs. Results → **▶ Play brain changes** steps through each weight update.
+   **Compare Frozen Learning**: the frozen twin fails. Learning helped (shadows taught the swarm to
+   stop wasting jumps).
+4. **Level 3 · Mack → Scout.** Wiped out. Build: 2 flies, sugar 100, bitter ×0, threat ×1.5, both
+   Conservative (7 points): cleared, 11 eggs. Set threat learning to Responsive (8 points): wiped out,
+   frozen twin survives. Learning hurt.
+5. **Limitations** (20 s), below.
 
 | Level | Build (seed 7, 2 flies) | Cost | Adaptive | Frozen twin |
 |---|---|---|---|---|
-| 1 | Scout | 0 | cleared, 18 eggs | cleared, 14 eggs |
-| 2 | Scout | 0 | not cleared | wiped out |
-| 2 | sugar 200, bitter ×0.5, threat ×1, conservative both | 4 | **cleared**, 21 eggs | not cleared |
-| 2 | sugar 100, bitter ×0, threat ×1, conservative both | 4 | cleared, 24 eggs | cleared, 20 eggs |
-| 3 | Scout | 0 | wiped out | not cleared |
-| 3 | sugar 200, bitter ×0.25, threat ×1.5, conservative both | 7 | **cleared**, 16 eggs | cleared, 11 eggs |
-| 3 | same, threat Responsive | 8 | **wiped out** | cleared, 11 eggs |
+| 1 | Scout | 1 | cleared, 18 eggs | cleared, 14 eggs |
+| 2 | Scout | 1 | not cleared | wiped out |
+| 2 | sugar 200, bitter ×0.5, threat ×1, conservative both | 5 | **cleared**, 21 eggs | not cleared |
+| 2 | sugar 100, bitter ×0, threat ×1, conservative both | 5 | cleared, 24 eggs | cleared, 20 eggs |
+| 3 | sugar 100, bitter ×0, threat ×1.5, conservative both | 7 | **cleared**, 11 eggs | cleared, 14 eggs |
+| 3 | same, threat Responsive | 8 | **wiped out** | cleared, 14 eggs |
+| 3 | sugar 200, bitter ×0.25, threat ×1.5, conservative both | 8 | cleared, 16 eggs | cleared, 11 eggs |
 
-Builds that clear, seed 7, all swarm sizes within budget: Level 1 620 of 620, Level 2 161 of 620,
-Level 3 64 of 620 (`LEVEL=medium npx tsx scripts/tune.ts 7 0`). A swarm of 16 never counts as a win.
+Builds that clear on seed 7 (`LEVEL=medium LIST=1 npx tsx scripts/tune.ts 7 0`): Level 1 430 of 694 (any
+build with 2, 4 or 8 flies), Level 2 94 of 694, Level 3 39 of 694. One fly or 16 flies never clears.
+A few cheap Level 3 builds (bitter ×1, threat ×0.5–0.75) clear on seed 7 by luck: about 3 of 12 other seeds.
 
 ## Limitations (say these)
 

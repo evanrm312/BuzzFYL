@@ -5,7 +5,7 @@
 import type { BuildConfig, Group, Policy } from "./types";
 
 export const CORE_VERSION = "core-0.6.0";
-export const CONTROLLER_VERSION = "body-5";
+export const CONTROLLER_VERSION = "body-6";
 export const LEARNING_RULE_VERSION = "event-step-1";
 export const NEURAL_SEED_POLICY = "replicate = hash(worldSeed, decisionKey) mod availableSeeds";
 
@@ -58,8 +58,8 @@ export const POLICY_THRESHOLD: Record<Policy, number> = {
 };
 
 export const SUGAR_COST = { 100: 0, 200: 2 } as const;
-/** Flies released on route levels, by `BuildConfig.swarm`. Each doubling costs SWARM_COST. 16 is the limit. */
-export const SWARM_SIZES = [2, 4, 8, 16] as const;
+/** Flies released on route levels, by `BuildConfig.swarm`: one fly is free, each point doubles it. 16 is the limit. */
+export const SWARM_SIZES = [1, 2, 4, 8, 16] as const;
 export const SWARM_COST = 1;
 export const SWARM_LIMIT = 16; // a full swarm can be released but cannot win
 export const swarmSize = (cfg: { swarm?: number }) => SWARM_SIZES[Math.min(SWARM_SIZES.length - 1, Math.max(0, cfg.swarm ?? 0))];
