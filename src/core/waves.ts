@@ -23,8 +23,14 @@ export interface WaveDef {
   duration: number;
   budget: number;
   energyDrain?: number; // per second; GAME.energyDrainPerS when absent
+  hydrationDrain?: number; // per second; no thirst when absent
+  needsWater?: boolean; // every state must also have the water lattice measured
+  start?: { x: number; y: number };
+  fruit?: { x: number; y: number; r: number }; // egg-laying site; the route's destination
+  candles?: { x: number; y: number }[]; // citronella candles: food beside them is coated
+  foodLife?: number; // seconds a serving stays out (default 9)
   phases: { from: number; label: string }[];
-  food: { at: number; kind: FoodKind }[];
+  food: { at: number; kind: FoodKind; band?: [number, number] }[]; // band: x range on the route
   threats: { at: number; ramp: RampName }[];
   feedback: string[]; // how game-defined safety signals reach the fly, shown in briefing
 }
@@ -34,6 +40,11 @@ const every = (from: number, to: number, step: number) => {
   for (let t = from; t < to; t += step) out.push(t);
   return out;
 };
+
+// route bands for the boss level: edge, middle, far side
+const E: [number, number] = [60, 320];
+const M: [number, number] = [260, 560];
+const F: [number, number] = [500, 760];
 
 export const WAVES: Record<WaveId, WaveDef> = {
   feeding: {
@@ -109,28 +120,52 @@ export const WAVES: Record<WaveId, WaveDef> = {
   },
   boss: {
     id: "boss",
-    title: "Boss — The Fogger",
-    question: "Does the build hold up when the demands change?",
-    duration: 60,
+    title: "Boss — Across the Picnic",
+    question: "Can the fly cross the picnic, refuel, and lay her eggs on the fruit before the fogger?",
+    duration: 75,
     budget: 5,
+    energyDrain: 2.2,
+    hydrationDrain: 1.6,
+    needsWater: true,
+    start: { x: 50, y: 250 },
+    fruit: { x: 735, y: 250, r: 45 },
+    candles: [{ x: 330, y: 140 }, { x: 330, y: 360 }, { x: 470, y: 250 }],
+    foodLife: 12,
     phases: [
-      { from: 0, label: "Truck approaching: fog bursts" },
-      { from: 20, label: "Bait spread: bitter food, some poisoned" },
-      { from: 40, label: "Final spray: everything" },
+      { from: 0, label: "Picnic edge: crumbs, droplets, passing guests" },
+      { from: 22, label: "Citronella row: coated food, fogger bait, swats" },
+      { from: 48, label: "The fogger arrives at the fruit" },
     ],
     food: [
-      ...every(1, 20, 4).map((at) => ({ at, kind: "clean" as const })),
-      ...every(20, 40, 2.5).map((at, i) => ({ at, kind: (i % 2 ? "safe_bitter" : "poison_bitter") as FoodKind })),
-      ...every(40, 58, 3).map((at, i) => ({ at, kind: (["clean", "poison_bitter", "safe_bitter"][i % 3]) as FoodKind })),
+      ...every(1, 22, 4).map((at) => ({ at, kind: "clean" as const, band: E })),
+      ...every(3, 22, 5).map((at) => ({ at, kind: "water" as const, band: E })),
+      ...every(22, 48, 3).map((at) => ({ at, kind: "citronella" as const, band: M })),
+      ...every(24, 48, 4.5).map((at) => ({ at, kind: "poison_bitter" as const, band: M })),
+      ...[26, 36, 46].map((at) => ({ at, kind: "water" as const, band: M })),
+      ...[30, 40].map((at) => ({ at, kind: "soda" as const, band: M })),
+      ...[50, 60, 70].map((at) => ({ at, kind: "water" as const, band: F })),
+      ...[52, 62].map((at) => ({ at, kind: "clean" as const, band: F })),
+      ...[56, 68].map((at) => ({ at, kind: "poison_bitter" as const, band: F })),
+      { at: 64, kind: "soda", band: F },
     ],
     threats: [
-      ...every(3, 20, 3.5).map((at, i) => ({ at, ramp: (i % 2 ? "shadow" : "fog") as RampName })),
-      ...every(22, 40, 6).map((at) => ({ at, ramp: "shadow" as RampName })),
-      ...every(41, 59, 3).map((at, i) => ({ at, ramp: (["fog", "swat_snap", "shadow", "swat_fast"][i % 4]) as RampName })),
+      ...every(4, 22, 5).map((at) => ({ at, ramp: "shadow" as RampName })),
+      { at: 25, ramp: "swat_slow" },
+      { at: 29, ramp: "shadow" },
+      { at: 33, ramp: "swat_fast" },
+      { at: 37, ramp: "shadow" },
+      { at: 41, ramp: "swat_snap" },
+      ...every(50, 74, 4).map((at) => ({ at, ramp: "fog" as RampName })),
+      { at: 54, ramp: "shadow" },
+      { at: 58, ramp: "swat_snap" },
+      { at: 66, ramp: "shadow" },
+      { at: 71, ramp: "swat_fast" },
     ],
     feedback: [
-      "Fog bursts land like a slow swat: damage unless the fly has jumped clear.",
-      "Bait follows the wave 1 signals; shadows follow the wave 2 signals.",
+      "Goal: reach the fruit bowl and lay eggs; score is eggs laid. Walking route and egg laying are authored.",
+      "Citronella-coated food is bitter to the fly (contact-repellent proxy through bitter taste cells) but safe; fogger bait is bitter and poisoned. Same input, different consequence.",
+      "Water droplets and soda spills are read through water taste cells; plain water only weakly drives MN9, so drinking is slow.",
+      "Fog bursts land like a slow swat at the fruit: damage unless the fly has jumped clear.",
     ],
   },
 };
@@ -147,14 +182,24 @@ export function buildSchedule(wave: WaveDef, seed: number): { servings: Serving[
     x: margin + rnd() * (ARENA.w - 2 * margin),
     y: margin + rnd() * (ARENA.h - 2 * margin),
   });
+  const place = (f: WaveDef["food"][number]) => {
+    if (f.kind === "citronella" && wave.candles?.length) {
+      const c = wave.candles[Math.floor(rnd() * wave.candles.length)];
+      const a = rnd() * Math.PI * 2;
+      return { x: c.x + Math.cos(a) * 30, y: c.y + Math.sin(a) * 30 };
+    }
+    const p = pos();
+    if (f.band) p.x = f.band[0] + rnd() * (f.band[1] - f.band[0]);
+    return p;
+  };
   const servings: Serving[] = wave.food.map((f, i) => {
     const jitter = rnd() * 0.6;
     return {
       id: `food${i}`,
       kind: f.kind,
-      ...pos(),
+      ...place(f),
       spawnAt: f.at + jitter,
-      expiresAt: f.at + jitter + 9,
+      expiresAt: f.at + jitter + (wave.foodLife ?? 9),
       progress: 0,
       status: "pending",
       refusedUntil: 0,

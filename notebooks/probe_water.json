@@ -1,0 +1,212 @@
+{
+ "groups": {
+  "water": 30,
+  "smell_av": 106
+ },
+ "results": [
+  {
+   "stimulus_hz": {
+    "water": 400
+   },
+   "seed": 0,
+   "readouts_hz": {
+    "mn9": 20.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0
+   },
+   "sensory_hz": {
+    "water": 387.99999999999994
+   },
+   "neurons_active": 276,
+   "total_spikes": 3926
+  },
+  {
+   "stimulus_hz": {
+    "sugar": 100
+   },
+   "seed": 0,
+   "readouts_hz": {
+    "mn9": 75.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0
+   },
+   "sensory_hz": {
+    "sugar": 98.125
+   },
+   "neurons_active": 355,
+   "total_spikes": 2767
+  },
+  {
+   "stimulus_hz": {
+    "sugar": 100,
+    "water": 200
+   },
+   "seed": 0,
+   "readouts_hz": {
+    "mn9": 35.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0
+   },
+   "sensory_hz": {
+    "sugar": 102.8125,
+    "water": 193.5
+   },
+   "neurons_active": 381,
+   "total_spikes": 3791
+  },
+  {
+   "stimulus_hz": {
+    "sugar": 50
+   },
+   "seed": 0,
+   "readouts_hz": {
+    "mn9": 15.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0
+   },
+   "sensory_hz": {
+    "sugar": 51.71875
+   },
+   "neurons_active": 133,
+   "total_spikes": 653
+  },
+  {
+   "stimulus_hz": {
+    "sugar": 50,
+    "water": 200
+   },
+   "seed": 0,
+   "readouts_hz": {
+    "mn9": 20.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0
+   },
+   "sensory_hz": {
+    "sugar": 52.5,
+    "water": 193.5
+   },
+   "neurons_active": 351,
+   "total_spikes": 2936
+  },
+  {
+   "stimulus_hz": {
+    "sugar": 100,
+    "water": 400
+   },
+   "seed": 0,
+   "readouts_hz": {
+    "mn9": 50.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0
+   },
+   "sensory_hz": {
+    "sugar": 102.8125,
+    "water": 391.0
+   },
+   "neurons_active": 463,
+   "total_spikes": 5629
+  },
+  {
+   "stimulus_hz": {
+    "water": 400
+   },
+   "seed": 1,
+   "readouts_hz": {
+    "mn9": 15.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0
+   },
+   "sensory_hz": {
+    "water": 402.8333333333333
+   },
+   "neurons_active": 267,
+   "total_spikes": 4007
+  },
+  {
+   "stimulus_hz": {
+    "sugar": 100
+   },
+   "seed": 1,
+   "readouts_hz": {
+    "mn9": 55.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0
+   },
+   "sensory_hz": {
+    "sugar": 103.75
+   },
+   "neurons_active": 324,
+   "total_spikes": 2371
+  },
+  {
+   "stimulus_hz": {
+    "sugar": 100,
+    "water": 200
+   },
+   "seed": 1,
+   "readouts_hz": {
+    "mn9": 45.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0
+   },
+   "sensory_hz": {
+    "sugar": 101.5625,
+    "water": 200.66666666666666
+   },
+   "neurons_active": 408,
+   "total_spikes": 3790
+  },
+  {
+   "stimulus_hz": {
+    "sugar": 50
+   },
+   "seed": 1,
+   "readouts_hz": {
+    "mn9": 30.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0
+   },
+   "sensory_hz": {
+    "sugar": 51.875
+   },
+   "neurons_active": 196,
+   "total_spikes": 807
+  },
+  {
+   "stimulus_hz": {
+    "sugar": 50,
+    "water": 200
+   },
+   "seed": 1,
+   "readouts_hz": {
+    "mn9": 5.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0
+   },
+   "sensory_hz": {
+    "sugar": 51.40625,
+    "water": 200.66666666666666
+   },
+   "neurons_active": 216,
+   "total_spikes": 2655
+  },
+  {
+   "stimulus_hz": {
+    "sugar": 100,
+    "water": 400
+   },
+   "seed": 1,
+   "readouts_hz": {
+    "mn9": 30.0,
+    "giant_fibre": 0.0,
+    "mdn": 0.0
+   },
+   "sensory_hz": {
+    "sugar": 101.5625,
+    "water": 391.3333333333333
+   },
+   "neurons_active": 383,
+   "total_spikes": 5390
+  }
+ ]
+}

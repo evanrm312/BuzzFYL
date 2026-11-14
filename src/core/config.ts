@@ -5,7 +5,7 @@
 import type { BuildConfig, Group, Policy } from "./types";
 
 export const CORE_VERSION = "core-0.6.0";
-export const CONTROLLER_VERSION = "body-1";
+export const CONTROLLER_VERSION = "body-2";
 export const LEARNING_RULE_VERSION = "event-step-1";
 export const NEURAL_SEED_POLICY = "replicate = hash(worldSeed, decisionKey) mod availableSeeds";
 
@@ -17,6 +17,7 @@ export const CTRL = {
   walkSpeed: 110, // authored forward walking, units/s
   contactRadius: 14,
   feedMn9Hz: 30, // MN9 at or above: feed
+  drinkMn9Hz: 10, // MN9 at or above on water/soda: drink (water alone only reaches ~15-20 Hz)
   escapeGfHz: 150, // Giant Fibre at or above: jump
   servingSeconds: 1.2, // a serving takes this long at MN9 = 100 Hz
   refuseAfterTicks: 2, // consecutive no-threat sub-threshold ticks before leaving a serving
@@ -26,6 +27,8 @@ export const CTRL = {
   escapeCooldown: 1.5,
   threatRadius: 170, // inside this, the fly receives the threat's looming input
   hitRadius: 70,
+  needLevel: 60, // boss route: detour for food/water below this, otherwise head for the fruit
+  eggSeconds: 2.0,
 } as const;
 
 export const GAME = {
@@ -34,6 +37,12 @@ export const GAME = {
   startEnergy: 50,
   energyDrainPerS: 2.0,
   servingEnergy: 22,
+  maxHydration: 100,
+  startHydration: 70,
+  drinkHydration: 35,
+  sodaEnergy: 12,
+  eggEnergy: 3,
+  eggMinReserve: 15, // energy and water needed to lay
   poisonDamage: 30,
   swatDamage: 40,
   fogDamage: 25,

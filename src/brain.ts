@@ -5,7 +5,7 @@
 // and nothing is synthesised: an unsupported request throws.
 
 export type Readout = "mn9" | "giant_fibre" | "mdn";
-export type Sensory = "sugar" | "bitter" | "looming";
+export type Sensory = "sugar" | "bitter" | "looming" | "water";
 
 /** Persistent synapse scaling the fly carries between runs (what "learning" changes). */
 export interface BrainState {
@@ -17,6 +17,7 @@ export interface Stimulus {
   sugar: number;
   bitter: number;
   looming: number;
+  water?: number; // only measured at grid.water_hz, with looming limited to grid.water_looming_hz
 }
 
 export interface Run {
@@ -47,6 +48,8 @@ export interface BrainData {
     looming_hz: number[];
     bitter_scale: number[];
     loom_gf_scale: number[];
+    water_hz?: number[];
+    water_looming_hz?: number[];
   };
   plasticity: Record<string, string>;
   groups: Record<string, { selector: string; aggregation: string; root_ids: string[] }>;
@@ -100,31 +103,47 @@ export class Brain {
    */
   snap(stim: Stimulus): Stimulus {
     const g = this.data.grid;
-    return {
+    const out: Stimulus = {
       sugar: nearest(g.sugar_hz, stim.sugar),
       bitter: nearest(g.bitter_hz, stim.bitter),
       looming: floorTo(g.looming_hz, stim.looming),
     };
+    if (stim.water && g.water_hz?.length) {
+      out.water = nearest(g.water_hz, stim.water);
+      out.looming = floorTo(g.water_looming_hz ?? [0], stim.looming);
+    }
+    return out;
   }
 
   conditionId(state: BrainState, stim: Stimulus): string {
     return `bitter${fmt(state.bitterScale)}|loomgf${fmt(state.loomGfScale)}` +
-      `|sugar${stim.sugar}|bitter${stim.bitter}|looming${stim.looming}`;
+      `|sugar${stim.sugar}|bitter${stim.bitter}|looming${stim.looming}` +
+      (stim.water ? `|water${stim.water}` : "");
   }
 
-  /** Every stimulus in the manifest, in grid order. */
-  get stimuli(): Stimulus[] {
+  /** Every stimulus in the manifest, in grid order (water combos only when asked for). */
+  stimuli(withWater = false): Stimulus[] {
     const g = this.data.grid;
-    return g.sugar_hz.flatMap((sugar) =>
+    const base = g.sugar_hz.flatMap((sugar) =>
       g.bitter_hz.flatMap((bitter) => g.looming_hz.map((looming) => ({ sugar, bitter, looming }))));
+    if (!withWater) return base;
+    const wet = (g.water_hz ?? []).flatMap((water) =>
+      g.sugar_hz.flatMap((sugar) =>
+        g.bitter_hz.flatMap((bitter) => (g.water_looming_hz ?? []).map((looming) => ({ sugar, bitter, looming, water })))));
+    return [...base, ...wet];
+  }
+
+  get hasWater(): boolean {
+    return (this.data.grid.water_hz ?? []).length > 0;
   }
 
   /**
    * A state is playable only when every manifest stimulus has at least one measured run, so
    * no lookup during a run can hit a hole. Partial exports leave the state unavailable.
    */
-  stateAvailable(state: BrainState): boolean {
-    return this.stimuli.every((st) => {
+  stateAvailable(state: BrainState, withWater = false): boolean {
+    if (withWater && !this.hasWater) return false;
+    return this.stimuli(withWater).every((st) => {
       const c = this.data.conditions[this.conditionId(state, st)];
       return !!c && c.status === "ok" && c.runs.length > 0;
     });

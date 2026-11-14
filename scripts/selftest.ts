@@ -3,7 +3,7 @@ import { strict as assert } from "node:assert";
 import { applyEvidence, newGroup } from "../src/core/learning";
 import { Sim } from "../src/core/sim";
 import type { BuildConfig } from "../src/core/types";
-import { WAVE_ORDER } from "../src/core/waves";
+import { WAVE_ORDER, WAVES } from "../src/core/waves";
 import { loadBrain } from "./load";
 
 const brain = loadBrain();
@@ -41,6 +41,10 @@ console.log(`${avail.length}/25 states fully measured`);
 
 for (const wave of WAVE_ORDER) {
   const cfg = avail[0];
+  if (WAVES[wave].needsWater && !brain.stateAvailable({ bitterScale: scales[cfg.bitterLevel], loomGfScale: brain.levels.loomGfScale[cfg.loomGfLevel] }, true)) {
+    console.log(`${wave.padEnd(9)} skipped: water lattice not measured yet`);
+    continue;
+  }
   const a = new Sim(brain, { wave, seed: 7, config: cfg }).runToEnd();
   const b = new Sim(brain, { wave, seed: 7, config: cfg }).runToEnd();
   assert.deepEqual(a, b, `${wave}: deterministic`);
@@ -48,7 +52,7 @@ for (const wave of WAVE_ORDER) {
   for (const e of a.events) {
     if (!e.learning) continue;
     assert.ok(Math.abs(e.learning.levelAfter - e.learning.levelBefore) <= 1);
-    if (e.learning.group === "bitter") assert.ok(e.foodKind === "safe_bitter" || e.foodKind === "poison_bitter");
+    if (e.learning.group === "bitter") assert.ok(e.foodKind === "safe_bitter" || e.foodKind === "poison_bitter" || e.foodKind === "citronella");
     else assert.ok(e.outcome === "threat_harmless" || e.outcome === "threat_hit");
     assert.ok(e.exposed);
   }

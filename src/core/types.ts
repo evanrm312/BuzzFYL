@@ -33,7 +33,9 @@ export interface GroupState {
 
 export type WaveId = "feeding" | "threats" | "combined" | "boss";
 
-export type FoodKind = "clean" | "safe_bitter" | "poison_bitter";
+// citronella: food near a candle, coated with repellent (bitter input, safe to eat).
+// water: droplet (water input). soda: spilled drink (sugar + water input).
+export type FoodKind = "clean" | "safe_bitter" | "poison_bitter" | "citronella" | "water" | "soda";
 
 export interface Serving {
   id: string;
@@ -63,7 +65,7 @@ export interface Threat {
   status: "pending" | "active" | "hit" | "missed" | "passed";
 }
 
-export type Action = "idle" | "walking" | "feeding" | "suppressed" | "refusing" | "escaping";
+export type Action = "idle" | "walking" | "feeding" | "drinking" | "suppressed" | "refusing" | "escaping" | "laying";
 
 /** One neural lookup and what the body controller did with it. */
 export interface Decision {
@@ -83,6 +85,9 @@ export interface Decision {
 
 export type Outcome =
   | "serving_completed"
+  | "drink_completed"
+  | "reached_fruit"
+  | "egg_laid"
   | "serving_refused"
   | "poisoned"
   | "threat_harmless"
@@ -124,6 +129,7 @@ export interface FlyState {
   heading: number;
   health: number;
   energy: number;
+  hydration: number;
   action: Action;
   airborneUntil: number;
   cooldownUntil: number;
@@ -142,6 +148,9 @@ export interface Metrics {
   mealsInterruptedByJump: number;
   damageTaken: number;
   adaptations: number;
+  drinks: number;
+  eggsLaid: number;
+  reachedFruitAt: number | null;
 }
 
 export interface RunRecord {
@@ -158,6 +167,6 @@ export interface RunRecord {
   decisions: Decision[];
   trajectory: { t: number; group: Group; level: number; scale: number }[];
   metrics: Metrics;
-  result: "survived" | "died_health" | "died_energy" | "running";
+  result: "survived" | "died_health" | "died_energy" | "died_thirst" | "running";
   duration: number;
 }

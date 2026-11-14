@@ -10,5 +10,5 @@ const r = new Sim(loadBrain(), {
   config: { sugarHz: Number(sugar) as 100 | 200, bitterLevel: Number(b), loomGfLevel: Number(l), policy: { bitter: pb as Policy, loomGf: pl as Policy } },
 }).runToEnd();
 for (const e of r.events)
-  console.log(e.t.toFixed(1).padStart(5), e.outcome.padEnd(18), (e.foodKind ?? e.threatId ?? "").padEnd(14), e.learning ? `${e.learning.group} ${e.learning.note} ×${e.learning.scaleBefore}→×${e.learning.scaleAfter}` : "");
+  console.log(e.t.toFixed(1).padStart(5), e.outcome.padEnd(18), (e.foodKind ?? e.threatId ?? "").padEnd(14), e.outcome === "egg_laid" ? "" : "", e.learning ? `${e.learning.group} ${e.learning.note} ×${e.learning.scaleBefore}→×${e.learning.scaleAfter}` : "");
 console.log(r.result, r.duration, JSON.stringify(r.metrics));

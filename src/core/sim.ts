@@ -74,6 +74,9 @@ export class Sim {
     mealsInterruptedByJump: 0,
     damageTaken: 0,
     adaptations: 0,
+    drinks: 0,
+    eggsLaid: 0,
+    reachedFruitAt: null,
   };
   result: RunRecord["result"] = "running";
   /** Latest lookup, for the live brain panel. */
@@ -85,6 +88,8 @@ export class Sim {
   private servingLookups = new Map<string, number>();
   private refuseStreak = 0;
   private decisionKey: string | null = null;
+  private wet: boolean;
+  private nextEggAt = 0;
   private jump: { fromX: number; fromY: number; toX: number; toY: number; t0: number } | null = null;
   private onEvent?: (e: GameEvent) => void;
 
@@ -100,15 +105,17 @@ export class Sim {
       bitter: newGroup(opts.config.bitterLevel, opts.config.policy.bitter),
       loomGf: newGroup(opts.config.loomGfLevel, opts.config.policy.loomGf),
     };
-    if (!brain.stateAvailable(this.brainState)) {
+    this.wet = !!this.wave.needsWater;
+    if (!brain.stateAvailable(this.brainState, this.wet)) {
       throw new Error(`starting brain state not fully measured: ${JSON.stringify(this.brainState)}`);
     }
     this.fly = {
-      x: ARENA.w / 2,
-      y: ARENA.h / 2,
+      x: this.wave.start?.x ?? ARENA.w / 2,
+      y: this.wave.start?.y ?? ARENA.h / 2,
       heading: 0,
       health: GAME.maxHealth,
       energy: GAME.startEnergy,
+      hydration: this.wave.hydrationDrain ? GAME.startHydration : GAME.maxHydration,
       action: "idle",
       airborneUntil: 0,
       cooldownUntil: 0,
@@ -198,12 +205,14 @@ export class Sim {
     }
 
     f.energy = Math.max(0, f.energy - (this.wave.energyDrain ?? GAME.energyDrainPerS) * CTRL.dt);
+    f.hydration = Math.max(0, f.hydration - (this.wave.hydrationDrain ?? 0) * CTRL.dt);
 
     this.move();
     if (this.ticks % this.tickEvery === 0) this.decide();
 
     if (f.health <= 0) this.result = "died_health";
     else if (f.energy <= 0) this.result = "died_energy";
+    else if (f.hydration <= 0) this.result = "died_thirst";
     else if (this.t >= this.wave.duration) this.result = "survived";
   }
 
@@ -219,22 +228,38 @@ export class Sim {
       }
       return;
     }
-    if (f.action === "feeding" || f.action === "suppressed" || f.action === "refusing") {
+    if (f.action === "feeding" || f.action === "drinking" || f.action === "suppressed" || f.action === "refusing") {
       const s = this.serving(f.targetServing);
       if (s && s.status === "available" && s.refusedUntil <= this.t && dist(f, s) <= CTRL.contactRadius) return;
       f.action = "idle";
     }
     const target = this.pickServing();
     f.targetServing = target?.id ?? null;
+    const fruit = this.wave.fruit;
+    if (!target && fruit) {
+      // authored route: no pressing need, so head for the fruit and lay eggs there
+      if (dist(f, fruit) <= fruit.r) {
+        this.layEggs();
+        return;
+      }
+      this.walkTo(fruit);
+      return;
+    }
     if (!target) {
       f.action = "idle";
       return;
     }
     const d = dist(f, target);
     if (d <= CTRL.contactRadius) {
-      f.action = "feeding"; // tentative until the next decision tick reads MN9
+      f.action = isDrink(target) ? "drinking" : "feeding"; // tentative until MN9 is read
       return;
     }
+    this.walkTo(target);
+  }
+
+  private walkTo(target: { x: number; y: number }): void {
+    const f = this.fly;
+    const d = dist(f, target);
     const stepLen = Math.min(d, CTRL.walkSpeed * CTRL.dt);
     f.heading = Math.atan2(target.y - f.y, target.x - f.x);
     f.x += Math.cos(f.heading) * stepLen;
@@ -242,12 +267,41 @@ export class Sim {
     f.action = "walking";
   }
 
-  /** Authored: nearest available serving the fly has not just refused. */
+  /** Authored egg laying at the fruit: one egg per eggSeconds while reserves allow. */
+  private layEggs(): void {
+    const f = this.fly;
+    if (this.metrics.reachedFruitAt === null) {
+      this.metrics.reachedFruitAt = this.t;
+      this.emit("reached_fruit", { exposed: false, feedback: "arrived at the fruit bowl (authored route)" });
+      this.nextEggAt = this.t + CTRL.eggSeconds;
+    }
+    f.action = "laying";
+    if (this.t < this.nextEggAt) return;
+    this.nextEggAt = this.t + CTRL.eggSeconds;
+    if (f.energy < GAME.eggMinReserve || f.hydration < GAME.eggMinReserve) return;
+    f.energy -= GAME.eggEnergy;
+    this.metrics.eggsLaid++;
+    this.emit("egg_laid", { exposed: false, feedback: `egg ${this.metrics.eggsLaid} laid (authored)` });
+  }
+
+  /**
+   * Authored: nearest available serving the fly has not just refused. On a route level the
+   * fly only detours for what it needs (energy or water below CTRL.needLevel).
+   */
   private pickServing(): Serving | null {
+    const f = this.fly;
+    const route = !!this.wave.fruit;
+    const needE = f.energy < CTRL.needLevel;
+    const needW = f.hydration < CTRL.needLevel;
     let best: Serving | null = null;
     let bestD = Infinity;
     for (const s of this.servings) {
       if (s.status !== "available" || s.refusedUntil > this.t) continue;
+      if (route) {
+        const water = s.kind === "water" || s.kind === "soda";
+        const food = s.kind !== "water";
+        if (!((needE && food) || (needW && water))) continue;
+      }
       const d = dist(this.fly, s);
       if (d < bestD) {
         best = s;
@@ -286,11 +340,9 @@ export class Sim {
     const onFood = !!s && s.status === "available" && dist(f, s) <= CTRL.contactRadius;
     if (!onFood && looming === 0) return; // no sensory input: nothing to look up
 
-    const requested: Stimulus = {
-      sugar: onFood ? this.config.sugarHz : 0,
-      bitter: onFood && s!.kind !== "clean" ? 200 : 0,
-      looming,
-    };
+    const requested: Stimulus = onFood ? { ...stimulusFor(s!, this.config.sugarHz), looming } : { sugar: 0, bitter: 0, looming };
+    const drink = onFood && isDrink(s!);
+    const thr = drink ? CTRL.drinkMn9Hz : CTRL.feedMn9Hz;
     const lookups = onFood ? (this.servingLookups.get(s!.id) ?? 0) : 0;
     if (onFood) this.servingLookups.set(s!.id, lookups + 1);
     const key = `${onFood ? `${s!.id}#${lookups}` : "-"}|${threat ? `${threat.id}@${this.threatTick.get(threat.id)}` : "-"}`;
@@ -309,16 +361,16 @@ export class Sim {
         this.metrics.mealsInterruptedByJump++;
       }
       this.startJump(threat);
-    } else if (onFood && mn9 >= CTRL.feedMn9Hz) {
-      action = "feeding";
-      reason = `MN9 ${fmt(mn9)} Hz ≥ ${CTRL.feedMn9Hz}: feeding`;
+    } else if (onFood && mn9 >= thr) {
+      action = drink ? "drinking" : "feeding";
+      reason = `MN9 ${fmt(mn9)} Hz ≥ ${thr}: ${action}`;
       if (threat) reason += `; GF ${fmt(gf)} Hz < ${CTRL.escapeGfHz}: no jump`;
       this.refuseStreak = 0;
       s!.progress = Math.min(1, s!.progress + (CTRL.decisionEvery * Math.min(mn9, 100)) / 100 / CTRL.servingSeconds);
       if (s!.progress >= 1) this.completeServing(s!);
     } else if (onFood && looming > 0) {
       action = "suppressed";
-      reason = `MN9 ${fmt(mn9)} Hz < ${CTRL.feedMn9Hz} under looming ${looming} Hz` +
+      reason = `MN9 ${fmt(mn9)} Hz < ${thr} under looming ${looming} Hz` +
         (threat?.jumped || this.t < f.cooldownUntil
           ? ": feeding suppressed (escape latched/cooling down)"
           : `; GF ${fmt(gf)} Hz < ${CTRL.escapeGfHz}: feeding suppressed, no jump`);
@@ -326,7 +378,7 @@ export class Sim {
     } else if (onFood) {
       this.refuseStreak++;
       action = "refusing";
-      reason = `MN9 ${fmt(mn9)} Hz < ${CTRL.feedMn9Hz}, no threat: refusing (${this.refuseStreak}/${CTRL.refuseAfterTicks})`;
+      reason = `MN9 ${fmt(mn9)} Hz < ${thr}, no threat: refusing (${this.refuseStreak}/${CTRL.refuseAfterTicks})`;
       if (this.refuseStreak >= CTRL.refuseAfterTicks) {
         this.refuseStreak = 0;
         s!.refusedUntil = this.t + CTRL.refuseRetrySeconds;
@@ -389,11 +441,30 @@ export class Sim {
   }
 
   private completeServing(s: Serving): void {
+    const f = this.fly;
     s.status = "eaten";
+    f.action = "idle";
+    if (isDrink(s)) {
+      this.metrics.drinks++;
+      f.hydration = Math.min(GAME.maxHydration, f.hydration + GAME.drinkHydration);
+      if (s.kind === "soda") f.energy = Math.min(GAME.maxEnergy, f.energy + GAME.sodaEnergy);
+      this.emit("drink_completed", {
+        serving: s,
+        exposed: true,
+        feedback: s.kind === "soda" ? "soda: water + sugar, no bitter evidence" : "water droplet: no bitter evidence",
+      });
+      return;
+    }
     this.metrics.servingsCompleted++;
-    this.fly.energy = Math.min(GAME.maxEnergy, this.fly.energy + GAME.servingEnergy);
-    this.fly.action = "idle";
-    if (s.kind === "clean") {
+    f.energy = Math.min(GAME.maxEnergy, f.energy + GAME.servingEnergy);
+    if (s.kind === "citronella") {
+      this.emit("serving_completed", {
+        serving: s,
+        exposed: true,
+        feedback: "game signal after the meal: citronella-coated, repellent but safe",
+        learn: ["bitter", "weaken"],
+      });
+    } else if (s.kind === "clean") {
       this.emit("serving_completed", { serving: s, exposed: true, feedback: "clean food: no bitter input, no bitter evidence" });
     } else if (s.kind === "safe_bitter") {
       this.emit("serving_completed", {
@@ -462,7 +533,7 @@ export class Sim {
       const [group, direction] = o.learn;
       const before = this.brainState;
       learning = applyEvidence(group, this.groups[group], this.config.policy[group], direction, this.scales[group], (lvl) =>
-        this.brain.stateAvailable({ ...before, [group === "bitter" ? "bitterScale" : "loomGfScale"]: this.scales[group][lvl] }),
+        this.brain.stateAvailable({ ...before, [group === "bitter" ? "bitterScale" : "loomGfScale"]: this.scales[group][lvl] }, this.wet),
       );
       if (learning.applied) {
         this.metrics.adaptations++;
@@ -470,7 +541,7 @@ export class Sim {
       }
     }
     const e: GameEvent = {
-      id: `${outcome}|${o.serving?.id ?? o.threat?.id}|${this.events.length}`,
+      id: `${outcome}|${o.serving?.id ?? o.threat?.id ?? "fly"}|${this.events.length}`,
       t: this.t,
       outcome,
       servingId: o.serving?.id,
@@ -492,6 +563,24 @@ export class Sim {
 
   private serving(id: string | null): Serving | undefined {
     return id ? this.servings.find((s) => s.id === id) : undefined;
+  }
+}
+
+const isDrink = (s: Serving) => s.kind === "water" || s.kind === "soda";
+
+/** Sensory input a serving delivers on contact. Citronella is read through bitter taste cells. */
+function stimulusFor(s: Serving, sugarHz: number): Omit<Stimulus, "looming"> {
+  switch (s.kind) {
+    case "clean":
+      return { sugar: sugarHz, bitter: 0 };
+    case "safe_bitter":
+    case "poison_bitter":
+    case "citronella":
+      return { sugar: sugarHz, bitter: 200 };
+    case "water":
+      return { sugar: 0, bitter: 0, water: 400 };
+    case "soda":
+      return { sugar: sugarHz, bitter: 0, water: 400 };
   }
 }
 

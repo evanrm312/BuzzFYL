@@ -28,6 +28,7 @@ import scipy.sparse as sp
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import export_brain as eb  # noqa: E402
+from probe_senses import new_groups  # noqa: E402
 
 OUT = eb.ROOT / "public" / "data" / "brain_plastic.json"
 SCHEMA_VERSION = 2
@@ -37,6 +38,9 @@ LOOM_GF_SCALE = [0.5, 0.75, 1.0, 1.25, 1.5]
 SUGAR_HZ = [0, 100, 200]
 BITTER_HZ = [0, 200]
 LOOMING_HZ = [0, 10, 20, 30, 40, 50, 100, 150]
+# water axis (probe_senses.py: water alone needs ~400 Hz to reach MN9); only these combos
+WATER_HZ = [400]
+WATER_LOOMING_HZ = [0, 50, 100]
 READOUTS = eb.READOUTS
 SENSORY = eb.SENSORY
 
@@ -47,8 +51,8 @@ def state_id(b, l):
     return f"bitter{b:g}|loomgf{l:g}"
 
 
-def condition_id(sid, s, b, l):
-    return f"{sid}|sugar{s}|bitter{b}|looming{l}"
+def condition_id(sid, s, b, l, w=0):
+    return f"{sid}|sugar{s}|bitter{b}|looming{l}" + (f"|water{w}" if w else "")
 
 
 def build_W(b_scale, l_scale):
@@ -67,15 +71,15 @@ def work(task):
     W = build_W(b_scale, l_scale)
     groups, N = G["groups"], G["N"]
     out = []
-    for s, b, l in todo:
-        inputs = [(groups[n], hz) for n, hz in (("sugar", s), ("bitter", b), ("looming", l)) if hz > 0]
+    for s, b, l, w in todo:
+        inputs = [(groups[n], hz) for n, hz in (("sugar", s), ("bitter", b), ("looming", l), ("water", w)) if hz > 0]
         record = {n: groups[n] for n in READOUTS + SENSORY} if seed == 0 else None
         t0 = time.perf_counter()
         counts, traces = eb.simulate(inputs, W, N, seed=seed, record=record)
         run = {
             "seed": seed,
             "readouts_hz": {n: float(eb.rate(counts, groups[n])) for n in READOUTS},
-            "sensory_hz": {n: float(eb.rate(counts, groups[n])) for n in SENSORY},
+            "sensory_hz": {n: float(eb.rate(counts, groups[n])) for n in SENSORY + (["water"] if w else [])},
             "neurons_active": int((counts > 0).sum()),
             "wall_seconds": round(time.perf_counter() - t0, 2),
         }
@@ -83,7 +87,7 @@ def work(task):
             bin_s = eb.TRACE_BIN_MS / 1000
             run["trace_hz"] = {n: [round(float(c) / len(groups[n]) / bin_s, 3) for c in tr]
                                for n, tr in traces.items()}
-        out.append(((s, b, l), run))
+        out.append(((s, b, l, w), run))
     return b_scale, l_scale, seed, out
 
 
@@ -91,10 +95,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--workers", type=int, default=10)
     ap.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2])
+    ap.add_argument("--water", action="store_true", help="include the water axis")
     ap.add_argument("--chunk", type=int, default=8, help="stimuli per task")
     args = ap.parse_args()
 
     N, W, groups, root_ids = eb.load_brain()
+    groups = new_groups(groups, root_ids)
     G.update(W=W, N=N, groups=groups)
 
     export = eb.new_export(groups, root_ids)
@@ -102,7 +108,10 @@ def main():
     export["provenance"]["script"] = "notebooks/export_plastic.py"
     del export["presets"]
     export["grid"] = {"sugar_hz": SUGAR_HZ, "bitter_hz": BITTER_HZ, "looming_hz": LOOMING_HZ,
-                      "bitter_scale": BITTER_SCALE, "loom_gf_scale": LOOM_GF_SCALE}
+                      "bitter_scale": BITTER_SCALE, "loom_gf_scale": LOOM_GF_SCALE,
+                      "water_hz": WATER_HZ, "water_looming_hz": WATER_LOOMING_HZ}
+    export["groups"]["water"] = {"selector": "cell_sub_class == 'water'", "aggregation": "mean over cells",
+                                 "root_ids": [str(root_ids[i]) for i in groups["water"]]}
     export["plasticity"] = {
         "bitter": "Multiply weights of all outgoing synapses of bitter GRNs (cell_sub_class == 'bitter').",
         "loom_gf": "Multiply weights of synapses from LC4/LPLC2 onto DNp01 (Giant Fibre) only.",
@@ -115,7 +124,9 @@ def main():
         if old.get("schema_version") == SCHEMA_VERSION:
             export["conditions"] = old["conditions"]
 
-    stimuli = list(itertools.product(SUGAR_HZ, BITTER_HZ, LOOMING_HZ))
+    stimuli = [(s, b, l, 0) for s, b, l in itertools.product(SUGAR_HZ, BITTER_HZ, LOOMING_HZ)]
+    if args.water:
+        stimuli += list(itertools.product(SUGAR_HZ, BITTER_HZ, WATER_LOOMING_HZ, WATER_HZ))
     tasks = []
     for seed in args.seeds:
         for b_scale, l_scale in itertools.product(BITTER_SCALE, LOOM_GF_SCALE):
@@ -131,10 +142,10 @@ def main():
     with mp.get_context("fork").Pool(args.workers) as pool:
         for b_scale, l_scale, seed, out in pool.imap_unordered(work, tasks):
             sid = state_id(b_scale, l_scale)
-            for (s, b, l), run in out:
-                cond = export["conditions"].setdefault(condition_id(sid, s, b, l), {
+            for (s, b, l, w), run in out:
+                cond = export["conditions"].setdefault(condition_id(sid, s, b, l, w), {
                     "state": {"bitter_scale": b_scale, "loom_gf_scale": l_scale},
-                    "stimulus_hz": {"sugar": s, "bitter": b, "looming": l},
+                    "stimulus_hz": {"sugar": s, "bitter": b, "looming": l, **({"water": w} if w else {})},
                     "status": "ok", "runs": [],
                 })
                 cond["runs"] = sorted([r for r in cond["runs"] if r["seed"] != seed] + [run],

@@ -48,7 +48,8 @@ const opt = (v: string | number, text: string, sel: boolean, disabled = false) =
 function renderBench() {
   const c = campaign.selected;
   const w = WAVES[wave(campaign)];
-  const avail = (b: number, l: number) => brain.stateAvailable({ bitterScale: scales.bitter[b], loomGfScale: scales.loomGf[l] });
+  const avail = (b: number, l: number) =>
+    brain.stateAvailable({ bitterScale: scales.bitter[b], loomGfScale: scales.loomGf[l] }, !!w.needsWater);
   const pol = (g: Group) =>
     (["frozen", "conservative", "responsive"] as Policy[]).map((p) => opt(p, p, c.policy[g] === p)).join("");
   const cost = buildCost(c, campaign.base);
@@ -133,7 +134,8 @@ MN9 ${d.readouts.mn9.toFixed(0)}  GF ${d.readouts.giant_fibre.toFixed(0)}  MDN $
 → ${d.action}: ${d.reason}</pre>` : ""}`;
   const f = sim.fly;
   const m = sim.metrics;
-  $("stats").innerHTML = `<b>${f.action.toUpperCase()}</b><br>health ${f.health.toFixed(0)} · energy ${f.energy.toFixed(0)}<br>
+  $("stats").innerHTML = `<b>${f.action.toUpperCase()}</b><br>health ${f.health.toFixed(0)} · energy ${f.energy.toFixed(0)}` +
+    `${sim.wave.hydrationDrain ? ` · water ${f.hydration.toFixed(0)} · eggs ${m.eggsLaid}` : ""}<br>
     eaten ${m.servingsCompleted} · refused ${m.servingsRefused} · poisoned ${m.poisonings}<br>
     jumps ${m.jumps} (on harmless ${m.jumpsOnHarmless}) · escaped ${m.attacksEscaped} · hit ${m.attacksHit}<br>
     suppressed ticks ${m.feedingSuppressedTicks} · adaptations ${m.adaptations}`;
@@ -141,10 +143,20 @@ MN9 ${d.readouts.mn9.toFixed(0)}  GF ${d.readouts.giant_fibre.toFixed(0)}  MDN $
 
 const cv = $<HTMLCanvasElement>("cv");
 const ctx = cv.getContext("2d")!;
-const foodColor = { clean: "#4a9e3f", safe_bitter: "#c9a227", poison_bitter: "#c9a227" };
+const foodColor = { clean: "#4a9e3f", safe_bitter: "#c9a227", poison_bitter: "#c9a227", citronella: "#c9a227", water: "#3b82c4", soda: "#8a5bc4" };
 function draw() {
   ctx.clearRect(0, 0, ARENA.w, ARENA.h);
   if (!sim) return;
+  const fr = sim.wave.fruit;
+  if (fr) {
+    ctx.fillStyle = "#e8a0a0";
+    ctx.beginPath(); ctx.arc(fr.x, fr.y, fr.r, 0, 7); ctx.fill();
+    ctx.fillStyle = "#222"; ctx.font = "12px system-ui"; ctx.fillText("fruit (lay eggs)", fr.x - 40, fr.y - fr.r - 4);
+  }
+  for (const c of sim.wave.candles ?? []) {
+    ctx.fillStyle = "#e6d27a"; ctx.fillRect(c.x - 6, c.y - 10, 12, 20);
+    ctx.fillStyle = "#e07b00"; ctx.beginPath(); ctx.arc(c.x, c.y - 14, 4, 0, 7); ctx.fill();
+  }
   for (const s of sim.servings) {
     if (s.status !== "available") continue;
     ctx.fillStyle = foodColor[s.kind];
