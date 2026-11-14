@@ -32,7 +32,6 @@ Picked pairs (adaptive vs frozen twin, same seed):
 |---|---|---|---|---|
 | 1 | 7 | sugar 100, bitter ×0.25 responsive | survives, 3 updates | dies: 4 poisonings |
 | 2 | 2 | baseline weights, threat responsive | survives, eats 11 | survives, eats 9, 5 jumps on harmless shadows |
-
 | Boss | 9 | sugar 100, both responsive | survives, 5 eggs (clutch) | misses the clutch: 3 eggs, 7 jumps on harmless shadows |
 | Boss | 5 | sugar 200, bitter responsive, threat conservative | **dies** after 11 eggs (learned to ignore looming, then swatted) | survives, 5 eggs |
 
