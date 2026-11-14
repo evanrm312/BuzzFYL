@@ -22,6 +22,29 @@ The UI prototype runs on a **synthetic** adapter (`window.BuzzFYLBrainAdapter`) 
 work is to wire the approved UI to `src/core/` without changing the approved look, copy or flow,
 and without writing a second simulation engine.
 
+## Decisions Evan made at 13:45 (these override the table below)
+
+1. **Single boss encounter only.** No waves 1–3 in the UI, since there isn't time for multiple
+   levels. Use `WAVES.boss`. Waves 1–3 stay in the core but are unused.
+2. **Economy: not decided yet.** Evan asked what conflict 2 means. Plainly: the UI's point system
+   (8 points, sugar 0–2, free learning policies) and the core's (boss budget 5, sugar 100/200 Hz,
+   responsive costs 1) differ. UI sugar level 0 would mean no sugar input, and the fly could
+   never eat. Proposed: adopt the UI economy, treat UI sugar 1 = 100 Hz and 2 = 200 Hz, and make
+   level 0 unavailable. Confirm with Evan before changing it.
+3. **The primary goal is getting across.** Eggs are a bonus ("dopamine spike"), not the win
+   condition. Change the core so `result = "survived"` means the fly is alive at the end **and**
+   has reached the fruit (`metrics.reachedFruitAt !== null`). Eggs become a score shown on top.
+   Remove `eggTarget` and the `no_clutch` result, or repurpose `no_clutch` as "alive but never
+   crossed". Then rerun `npx tsx scripts/matrix.ts 10 boss` and `scripts/pickdemo.ts`. The
+   current demo seeds in `docs/DEMO.md` were picked under the old egg-target rule.
+4. **Keep citronella and water** in scored behavior as implemented: the citronella proxy is a
+   bitter contact repellent, and water is measured with an authored 10 Hz drink threshold. Update
+   the UI's "Proposed" water label to an honest short note, and add citronella to the UI copy
+   where hazards are shown.
+5. **Brain data snapshot committed** at 13:45: seed 0 complete (1650 conditions incl. water),
+   seed 1 partial (786). The background export keeps adding seeds 1–2. Commit again only if you
+   want the extra seeds in the demo.
+
 ## Conflicts to resolve with Evan before or while integrating
 
 | # | UI handoff says | Core currently does | Recommendation |
@@ -111,9 +134,9 @@ The UI is plain JS with no build step, and the core is TypeScript under Vite. Fa
   connectivity", reset-state trials, "jump" not "dodge", and citronella and the water threshold
   labeled as ours.
 
-## Suggested order with ~50 minutes
+## Suggested order with ~45 minutes
 
-1. Confirm conflicts 1, 2 and 5 with Evan (2 min).
+1. Confirm the economy (decision 2) with Evan, and implement the win-condition change (decision 3).
 2. Extract the UI, serve it via Vite, import the core, and replace the adapter and step loop.
 3. Update the economy (conflict 2), rerun the boss matrix, and re-pick demo seeds with `pickdemo.ts`.
 4. Browser click-through, commit a data snapshot, update `docs/DEMO.md`, record backup footage by 2:15.
