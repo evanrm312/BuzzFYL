@@ -1,6 +1,6 @@
 # node / vite
 node_modules/
-dist/
+/dist/
 *.local
 
 # python
