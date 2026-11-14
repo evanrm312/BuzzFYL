@@ -3,7 +3,7 @@
 Run the **pinned build**: `npm run build && npx vite preview` → `http://localhost:4173/`. The build copies
 the brain export at build time, so the background export cannot change outcomes mid-demo. (`npm run dev`
 on 5173 reads the live file; replicate picks shift as seed 1 fills in.) Picnic seed is 7 by default
-(`?seed=N` to change). Controller `body-3`. Picks below were checked against the committed snapshot
+(`?seed=N` to change). Controller `body-4`. Picks below were checked against the committed snapshot
 with `BRAIN=dist/data/brain_plastic.json npx tsx scripts/pickdemo.ts boss <sugar> <bitterLvl> <threatLvl> <pb> <pl>`.
 
 ## One-breath pitch
@@ -16,31 +16,35 @@ Goal: reach the fruit and be alive when the encounter ends. Eggs are a bonus.
 
 ## Sequence (~3 min), all on seed 7
 
-1. **Picnic → Scout: basic model** (30 s at 4×). Unmodified brain, slow learning. It jumps at every
-   shadow, gets hit twice, and ends alive but short of the fruit ("Alive, never reached the fruit").
-2. **Workbench** (30 s). 8 points. Show the brain monitor: measured MN9 and Giant Fibre bars move as
-   the sliders move (bitter ×1 → sugar+bitter MN9 ≈ 0 Hz; ×0.25 → well above the 30 Hz feed line).
-   Set both learning policies to Responsive (2 points), leave weights alone.
-3. **Release** (2×–4×). Harmless shadows step looming→GF down (×1 → ×0.75 → ×0.5), the fly stops
-   wasting jumps, crosses, and lays 3 eggs. Point at the monitor: last lookup, thresholds, reason.
-4. **Results → Replay the evidence.** One event: sensory input → measured MN9/GF → controller action →
-   feedback → weight update, with condition ID and model seed.
-5. **Compare Frozen Learning.** Same seed, same start: frozen twin never reaches the fruit. "Here
-   learning helped."
-6. **Learning can hurt.** Revise: sugar 200 Hz, bitter ×0.25, both Responsive (7 points). Adaptive fly
-   eats poisoned bait and lowers its threat weight, then dies; its frozen twin survives with 6 eggs.
-7. **Limitations** (20 s), below.
+The boss is hard on purpose (energy drain 2.2/s, a swat does 50): 6 of the 190 builds the workbench can
+afford win on seed 7 (`npx tsx scripts/winners.ts`), and the unmodified brain starves.
+
+1. **Picnic → Scout: basic model** (4×). Unmodified brain. It refuses every bitter-tasting serving
+   (MN9 ≈ 0 Hz), wastes meals jumping at shadows, and dies of hunger before the fruit.
+2. **Workbench** (40 s). Read the brain monitor while moving sliders. Two things have to be true:
+   - *The fly must eat bitter-tasting food.* "Sugar + bitter" MN9 must clear the 30 Hz line: sugar 100
+     only does at bitter ×0 (58 Hz; ×0.25 gives 28); sugar 200 does at ×0.5 or lower (38 / 68 / 100 Hz).
+   - *The fly must never be hit twice.* Only threat ×1.5 reaches 150 Hz Giant Fibre at looming 30, early
+     enough for the snap swats. And threat learning must stay Conservative: Responsive weakens it after
+     the first harmless shadows.
+   Build: sugar 200, bitter ×0.25, threat ×1.5, both Conservative (7 points).
+3. **Release** (2×–4×). It eats coated food and bait (2 poisonings, survivable), jumps clear of every
+   swat and the fog, reaches the fruit, lays 3 eggs.
+4. **Results → Replay the evidence.** One event: input → measured MN9/GF → action → feedback → update.
+5. **Learning can hurt.** Revise: same build, threat learning Responsive (8 points). Shadows step the
+   threat weight down, a swat lands, the fly dies. Compare Frozen Learning: the frozen twin survives.
+6. **Limitations** (20 s), below.
 
 | Build (seed 7) | Cost | Adaptive | Frozen twin |
 |---|---|---|---|
-| Scout: sugar 100, ×1 / ×1, conservative both | 0 | alive, not across | alive, not across |
-| sugar 100, ×1 / ×1, responsive both | 2 | **survives**, 3 eggs, 6 updates | alive, not across, 7 jumps at harmless shadows |
-| sugar 200, bitter ×0.25, threat ×1, responsive both | 7 | **dies** (2 poisonings, 1 hit) | survives, 6 eggs |
-| sugar 200, bitter ×0, threat ×1.5, conservative both | 8 | survives, 4 eggs | survives, 4 eggs |
+| Scout: sugar 100, ×1 / ×1, conservative both | 0 | starves | starves |
+| sugar 200, bitter ×0.25, threat ×1.5, conservative both | 7 | **survives**, 3 eggs | survives, 2 eggs |
+| same, threat Responsive | 8 | **dies** (hit after weakening) | survives, 2 eggs |
+| sugar 100, bitter ×0, threat ×1.5, conservative both | 6 | survives, 4 eggs | survives, 2 eggs |
 
-Balance (450 builds × 10 seeds, `docs/matrix/MATRIX.md`): unmodified frozen brain survives 50%; 56 of 436
-in-budget builds reach ≥75%; no single setting dominates (low bitter weight lays more eggs but gets
-poisoned; high threat weight avoids hits but wastes jumps).
+All six winners on seed 7: threat ×1.5 with Conservative threat learning, plus sugar 100 / bitter ×0, or
+sugar 200 / bitter ×0, ×0.25 or ×0.5 (bitter learning either way at ×0.25 and ×0.5). They also win
+80–90% of ten other seeds, so it is the brain, not the seed.
 
 ## Limitations (say these)
 

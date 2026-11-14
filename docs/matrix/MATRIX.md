@@ -131,37 +131,37 @@ In budget with ≥75% survival: 49 of 194.
 
 | Feature | Value | Survival | Eggs | Eaten | Drinks | Poisoned | Hits | Jumps on harmless | Adaptations |
 |---|---|---|---|---|---|---|---|---|---|
-| Sugar input (Hz) | 100 | 56% | 3.2 | 4.2 | 2.6 | 0.2 | 1.4 | 3.0 | 2.3 |
-| Sugar input (Hz) | 200 | 42% | 5.4 | 4.9 | 2.4 | 0.7 | 1.3 | 3.0 | 2.4 |
-| Bitter-cell output weight | 0 | 30% | 6.7 | 5.4 | 2.0 | 1.1 | 1.3 | 3.0 | 2.3 |
-| Bitter-cell output weight | 0.25 | 38% | 4.7 | 4.8 | 2.2 | 0.7 | 1.3 | 3.0 | 2.5 |
-| Bitter-cell output weight | 0.5 | 47% | 3.8 | 4.6 | 2.4 | 0.4 | 1.4 | 3.0 | 2.5 |
-| Bitter-cell output weight | 0.75 | 66% | 3.1 | 3.9 | 2.9 | 0.0 | 1.3 | 3.0 | 2.3 |
-| Bitter-cell output weight | 1 | 65% | 3.1 | 3.9 | 2.9 | 0.0 | 1.3 | 3.0 | 2.3 |
-| Looming→GF weight | 0.5 | 37% | 5.2 | 4.4 | 2.4 | 0.5 | 1.8 | 0.0 | 1.2 |
-| Looming→GF weight | 0.75 | 37% | 5.1 | 4.4 | 2.4 | 0.5 | 1.8 | 0.0 | 1.9 |
-| Looming→GF weight | 1 | 52% | 4.1 | 4.6 | 2.5 | 0.4 | 1.2 | 3.7 | 2.5 |
-| Looming→GF weight | 1.25 | 55% | 3.6 | 4.6 | 2.6 | 0.4 | 1.3 | 5.2 | 2.9 |
-| Looming→GF weight | 1.5 | 65% | 3.4 | 4.7 | 2.5 | 0.4 | 0.7 | 6.0 | 3.3 |
-| Bitter policy | frozen | 50% | 4.3 | 4.5 | 2.5 | 0.5 | 1.3 | 3.0 | 2.1 |
-| Bitter policy | conservative | 50% | 4.3 | 4.5 | 2.5 | 0.5 | 1.3 | 3.0 | 2.2 |
-| Bitter policy | responsive | 48% | 4.3 | 4.5 | 2.5 | 0.4 | 1.4 | 3.0 | 2.8 |
-| Threat policy | frozen | 59% | 3.5 | 4.5 | 2.5 | 0.4 | 0.8 | 4.5 | 0.2 |
-| Threat policy | conservative | 48% | 4.1 | 4.6 | 2.5 | 0.4 | 1.5 | 3.2 | 1.6 |
-| Threat policy | responsive | 40% | 5.2 | 4.5 | 2.5 | 0.5 | 1.8 | 1.2 | 5.3 |
+| Sugar input (Hz) | 100 | 8% | 1.5 | 3.8 | 2.2 | 0.2 | 1.2 | 2.9 | 2.0 |
+| Sugar input (Hz) | 200 | 17% | 4.0 | 5.1 | 2.3 | 0.8 | 1.2 | 2.9 | 2.3 |
+| Bitter-cell output weight | 0 | 21% | 5.2 | 5.9 | 2.0 | 1.2 | 1.2 | 2.9 | 2.3 |
+| Bitter-cell output weight | 0.25 | 14% | 3.6 | 4.8 | 1.9 | 0.7 | 1.1 | 2.9 | 2.2 |
+| Bitter-cell output weight | 0.5 | 12% | 2.4 | 4.4 | 2.2 | 0.5 | 1.2 | 2.9 | 2.3 |
+| Bitter-cell output weight | 0.75 | 7% | 1.2 | 3.4 | 2.6 | 0.0 | 1.2 | 2.9 | 1.9 |
+| Bitter-cell output weight | 1 | 8% | 1.4 | 3.5 | 2.7 | 0.0 | 1.2 | 2.9 | 1.9 |
+| Looming→GF weight | 0.5 | 0% | 3.5 | 4.2 | 2.2 | 0.5 | 1.5 | 0.0 | 1.0 |
+| Looming→GF weight | 0.75 | 0% | 3.5 | 4.3 | 2.2 | 0.5 | 1.5 | 0.0 | 1.6 |
+| Looming→GF weight | 1 | 15% | 2.4 | 4.4 | 2.2 | 0.5 | 1.1 | 3.6 | 2.3 |
+| Looming→GF weight | 1.25 | 16% | 2.2 | 4.5 | 2.3 | 0.5 | 1.1 | 5.1 | 2.7 |
+| Looming→GF weight | 1.5 | 32% | 2.2 | 4.7 | 2.4 | 0.5 | 0.6 | 5.8 | 3.0 |
+| Bitter policy | frozen | 13% | 2.8 | 4.4 | 2.3 | 0.5 | 1.2 | 2.9 | 1.9 |
+| Bitter policy | conservative | 13% | 2.8 | 4.4 | 2.3 | 0.5 | 1.2 | 2.9 | 1.9 |
+| Bitter policy | responsive | 12% | 2.7 | 4.4 | 2.3 | 0.5 | 1.2 | 2.9 | 2.6 |
+| Threat policy | frozen | 29% | 2.6 | 4.6 | 2.3 | 0.5 | 0.7 | 4.3 | 0.3 |
+| Threat policy | conservative | 9% | 2.6 | 4.4 | 2.3 | 0.5 | 1.3 | 3.2 | 1.6 |
+| Threat policy | responsive | 0% | 3.0 | 4.3 | 2.2 | 0.5 | 1.6 | 1.2 | 4.5 |
 
 ### Best in-budget builds
 
 | Sugar | Bitter | Loom→GF | Policies (bitter/threat) | Cost | Survival | Eggs | Eaten | Drinks | Poisoned | Hits |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 200 | ×0 | ×1.5 | frozen/conservative | 8 | 100% | 6.4 | 6.3 | 2.3 | 1.4 | 0 |
-| 200 | ×0 | ×1.5 | conservative/conservative | 8 | 100% | 6.4 | 6.3 | 2.3 | 1.4 | 0 |
-| 200 | ×0 | ×1 | frozen/frozen | 6 | 100% | 6.2 | 6.1 | 2.3 | 0.9 | 0.1 |
-| 200 | ×0 | ×1 | conservative/frozen | 6 | 100% | 6.2 | 6.1 | 2.3 | 0.9 | 0.1 |
-| 200 | ×0 | ×1 | responsive/frozen | 7 | 100% | 6.2 | 6 | 2.3 | 0.8 | 0.1 |
-| 200 | ×0.25 | ×1.5 | frozen/conservative | 7 | 100% | 5.6 | 6.3 | 2.6 | 1.4 | 0 |
-| 200 | ×0.25 | ×1.5 | conservative/conservative | 7 | 100% | 5.6 | 6.3 | 2.6 | 1.4 | 0 |
-| 200 | ×0 | ×1.5 | frozen/frozen | 8 | 100% | 5.4 | 6.1 | 2.2 | 1.1 | 0.1 |
+| 200 | ×0.25 | ×1.5 | conservative/frozen | 7 | 100% | 6.4 | 7.2 | 2.2 | 1.5 | 0 |
+| 200 | ×0.25 | ×1.5 | frozen/frozen | 7 | 100% | 6.3 | 7.2 | 2.2 | 1.5 | 0 |
+| 200 | ×0.25 | ×1.25 | responsive/frozen | 7 | 100% | 5.3 | 7.2 | 2.2 | 1.6 | 0.2 |
+| 200 | ×0.25 | ×1.5 | responsive/frozen | 8 | 100% | 5.3 | 7.1 | 2.2 | 1.6 | 0 |
+| 200 | ×0.5 | ×1.5 | responsive/frozen | 7 | 100% | 2.6 | 6.4 | 2.6 | 0.9 | 0.3 |
+| 200 | ×0 | ×1 | frozen/frozen | 6 | 90% | 6.2 | 7.7 | 2.5 | 2.1 | 0.1 |
+| 200 | ×0 | ×1 | conservative/frozen | 6 | 90% | 6.2 | 7.7 | 2.5 | 2.1 | 0.1 |
+| 200 | ×0.25 | ×1.25 | frozen/frozen | 6 | 90% | 5.9 | 7.4 | 2.4 | 1.5 | 0.3 |
 
-Unmodified brain, frozen: survival 50%, eggs 0.8, eaten 3.8, drinks 2.8.
-In budget with ≥75% survival: 56 of 436.
+Unmodified brain, frozen: survival 10%, eggs 0.4, eaten 3.5, drinks 2.6.
+In budget with ≥75% survival: 33 of 436.

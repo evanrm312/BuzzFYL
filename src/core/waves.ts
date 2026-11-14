@@ -24,6 +24,7 @@ export interface WaveDef {
   budget: number;
   energyDrain?: number; // per second; GAME.energyDrainPerS when absent
   hydrationDrain?: number; // per second; no thirst when absent
+  swatDamage?: number; // GAME.swatDamage when absent
   needsWater?: boolean; // every state must also have the water lattice measured
   start?: { x: number; y: number };
   fruit?: { x: number; y: number; r: number }; // egg-laying site; the route's destination
@@ -124,7 +125,9 @@ export const WAVES: Record<WaveId, WaveDef> = {
     question: "Can the fly get across the picnic to the fruit and stay alive while Mack fogs it?",
     duration: 75,
     budget: 8,
-    energyDrain: 1.8,
+    // Hard on purpose: clean food alone does not cover this drain, and two swats kill.
+    energyDrain: 2.2,
+    swatDamage: 50,
     hydrationDrain: 1.2,
     needsWater: true,
     start: { x: 50, y: 250 },

@@ -24,7 +24,7 @@ Unavailable states must be shown disabled ("not measured yet"), never as zero.
 | `loomGfLevel` | index into `loomGfScale` | Starting weight of looming → Giant Fibre synapses |
 | `policy.bitter`, `policy.loomGf` | `frozen` \| `conservative` (3 events) \| `responsive` (1 event) | Readiness to change |
 
-Cost: `buildCost(cfg, base)` vs `WAVES[wave].budget` (boss: 8, shown on the UI's 8-segment meter). Each
+Cost: `buildCost(cfg, base)` vs `WAVES[wave].budget` (boss: 8, shown on the UI's 8-segment meter; the boss also sets its own `energyDrain` and `swatDamage`). Each
 level moved costs 1, sugar 200 costs 2, each responsive policy costs 1. The UI reads levels, costs and
 budget from the core and offers responsive/conservative only (frozen is used for the comparison twin).
 

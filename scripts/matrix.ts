@@ -9,7 +9,7 @@ import type { BuildConfig, Policy, WaveId } from "../src/core/types";
 import { WAVE_ORDER, WAVES } from "../src/core/waves";
 import { loadBrain } from "./load";
 
-const brain = loadBrain();
+const brain = loadBrain(process.env.BRAIN);
 const nSeeds = Number(process.argv[2] ?? 10);
 const waves = (process.argv.length > 3 ? process.argv.slice(3) : WAVE_ORDER) as WaveId[];
 const { bitterScale, loomGfScale } = brain.levels;

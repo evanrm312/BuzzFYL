@@ -517,7 +517,7 @@ export class Sim {
     const hit = !this.jump && dist(f, th) <= CTRL.hitRadius;
     if (hit) {
       th.status = "hit";
-      this.damage(th.kind === "fog" ? GAME.fogDamage : GAME.swatDamage);
+      this.damage(th.kind === "fog" ? GAME.fogDamage : (this.wave.swatDamage ?? GAME.swatDamage));
       this.metrics.attacksHit++;
       this.emit("threat_hit", {
         threat: th,
