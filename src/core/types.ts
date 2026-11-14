@@ -15,6 +15,7 @@ export interface BuildConfig {
   bitterLevel: number; // index into grid.bitter_scale
   loomGfLevel: number; // index into grid.loom_gf_scale
   policy: Record<Group, Policy>;
+  swarm?: number; // doublings of the starting pair on route levels: 0 → 2 flies … 3 → 16
 }
 
 export interface Evidence {
@@ -31,7 +32,7 @@ export interface GroupState {
   updates: number;
 }
 
-export type WaveId = "feeding" | "threats" | "combined" | "boss";
+export type WaveId = "feeding" | "threats" | "combined" | "easy" | "medium" | "boss";
 
 // citronella: food near a candle, coated with repellent (bitter input, safe to eat).
 // water: droplet (water input). soda: spilled drink (sugar + water input).
@@ -45,6 +46,7 @@ export interface Serving {
   spawnAt: number;
   expiresAt: number;
   progress: number; // 0..1, kept across interruptions
+  portions: number; // flies it can still feed; shared by the swarm
   status: "pending" | "available" | "eaten" | "expired";
   refusedUntil: number; // body controller will not retry before this time
 }
@@ -59,9 +61,10 @@ export interface Threat {
   ramp: number[]; // looming Hz per decision tick while active
   x: number;
   y: number;
-  tracking: boolean; // swatter follows the fly until it jumps
+  tracking: boolean; // swatter follows its target fly until that fly jumps
+  target: number; // id of the fly it is aimed at
   exposed: boolean; // the fly received looming input from it at least once
-  jumped: boolean; // per-threat latch: at most one escape per threat
+  jumped: boolean; // some fly jumped from it (each fly escapes a threat at most once)
   status: "pending" | "active" | "hit" | "missed" | "passed";
 }
 
@@ -71,6 +74,8 @@ export type Action = "idle" | "walking" | "feeding" | "drinking" | "suppressed" 
 export interface Decision {
   id: string; // stable key, also used to choose the neural replicate
   t: number;
+  flyId: number;
+  neuronsActive: number; // neurons that spiked in the looked-up model run
   servingId: string | null;
   threatId: string | null;
   requested: Stimulus;
@@ -100,6 +105,7 @@ export interface GameEvent {
   id: string;
   t: number;
   outcome: Outcome;
+  flyId?: number;
   servingId?: string;
   threatId?: string;
   foodKind?: FoodKind;
@@ -124,6 +130,12 @@ export interface LearningRecord {
 }
 
 export interface FlyState {
+  id: number;
+  alive: boolean;
+  death: "health" | "energy" | "thirst" | null;
+  reachedFruitAt: number | null;
+  eggs: number;
+  progress: number;
   x: number;
   y: number;
   heading: number;
@@ -150,7 +162,11 @@ export interface Metrics {
   adaptations: number;
   drinks: number;
   eggsLaid: number;
-  reachedFruitAt: number | null;
+  reachedFruitAt: number | null; // first fly to arrive
+  flies: number;
+  fliesAlive: number;
+  fliesAcross: number; // alive, on the fruit side, and laid at least one egg
+  healthLeft: number; // summed over living flies
   progress: number; // 0..1, closest approach to the fruit (1 only once reached); elapsed fraction on route-less waves
 }
 
@@ -169,6 +185,6 @@ export interface RunRecord {
   trajectory: { t: number; group: Group; level: number; scale: number }[];
   metrics: Metrics;
   // survived = alive at the end AND reached the fruit; not_crossed = alive but never got there
-  result: "survived" | "not_crossed" | "died_health" | "died_energy" | "died_thirst" | "running";
+  result: "survived" | "not_crossed" | "wiped_out" | "died_health" | "died_energy" | "died_thirst" | "running";
   duration: number;
 }

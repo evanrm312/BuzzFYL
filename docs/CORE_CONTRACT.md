@@ -81,3 +81,18 @@ trajectory, metrics, result). Save with `saveAttempt(record, prediction)` (faile
 wired to the core; no second simulation). `dev.html` is the plain harness. `?seed=N` picks the picnic
 (default 7). `?view=workbench|notebook|tutorial|live&t=30|results|compare` opens a screen directly.
 `npx tsx scripts/uismoke.ts "?view=results"` loads the UI against a stubbed DOM to catch runtime errors.
+
+## Swarm, levels, score (body-5)
+
+- **Levels**: `LEVELS = ["easy", "medium", "boss"]` in `waves.ts` (Garden Party, Citronella Row, Mack's Pest
+  Control). Each has `fliesNeeded: 2`, `portions: 2` (a serving feeds two flies) and `obstacles` for the briefing.
+- **Swarm**: `BuildConfig.swarm` = doublings of the starting pair (`SWARM_SIZES` 2/4/8/16, 1 point each).
+  `sim.flies[]` holds every body; `sim.fly` is the lead fly. All flies share one set of weights, so any fly's
+  experience trains the swarm (authored). 16 is the limit and a swarm of 16 cannot win (`SWARM_LIMIT`).
+- **Result**: `survived` = at least `fliesNeeded` flies alive, on the fruit and with an egg laid, and fewer
+  than 16 released. `not_crossed` otherwise; `wiped_out` when every fly is dead. Metrics add `flies`,
+  `fliesAlive`, `fliesAcross`, `healthLeft`. Decisions carry `flyId` and `neuronsActive`.
+- **Score**: `score(record, base)` in `score.ts` (cleared, flies across, eggs, health left, flies lost, unspent points).
+- **Brain map**: the UI's monitor draws the export's named groups (sugar, bitter, water, looming → MN9, Giant
+  Fibre, MDN) with the last lookup's input and measured output rates and the run's active-neuron count.
+  Schematic, not anatomy: the export has no per-neuron positions or per-region rates.

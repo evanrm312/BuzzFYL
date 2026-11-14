@@ -25,6 +25,9 @@ export interface WaveDef {
   energyDrain?: number; // per second; GAME.energyDrainPerS when absent
   hydrationDrain?: number; // per second; no thirst when absent
   swatDamage?: number; // GAME.swatDamage when absent
+  fliesNeeded?: number; // route levels: flies that must be alive, across and laying to win
+  portions?: number; // flies one serving can feed (default 1)
+  obstacles?: string[]; // what is new on this level, for the briefing
   needsWater?: boolean; // every state must also have the water lattice measured
   start?: { x: number; y: number };
   fruit?: { x: number; y: number; r: number }; // egg-laying site; the route's destination
@@ -119,9 +122,89 @@ export const WAVES: Record<WaveId, WaveDef> = {
       "Same signals as waves 1 and 2. A serving interrupted by a jump gives no safe-food evidence until completed.",
     ],
   },
+  easy: {
+    id: "easy",
+    title: "Level 1 — Garden Party",
+    question: "Can two flies cross a quiet lawn and lay eggs on the fruit?",
+    duration: 60,
+    budget: 8,
+    energyDrain: 1.7,
+    hydrationDrain: 1.0,
+    needsWater: true,
+    fliesNeeded: 2,
+    portions: 2,
+    start: { x: 50, y: 250 },
+    fruit: { x: 735, y: 250, r: 45 },
+    foodLife: 12,
+    obstacles: ["passing guests (harmless shadows)", "one slow swat"],
+    phases: [
+      { from: 0, label: "Quiet lawn: crumbs, droplets, passing guests" },
+      { from: 38, label: "Someone noticed the flies" },
+    ],
+    food: [
+      ...every(1, 30, 3.5).map((at) => ({ at, kind: "clean" as const, band: E })),
+      ...every(2, 30, 5).map((at) => ({ at, kind: "water" as const, band: E })),
+      ...every(20, 56, 4).map((at) => ({ at, kind: "clean" as const, band: M })),
+      ...every(24, 56, 6).map((at) => ({ at, kind: "water" as const, band: M })),
+      ...[40, 48, 54].map((at) => ({ at, kind: "clean" as const, band: F })),
+      ...[42, 52].map((at) => ({ at, kind: "soda" as const, band: F })),
+    ],
+    threats: [
+      ...every(5, 56, 6).map((at) => ({ at, ramp: "shadow" as RampName })),
+      { at: 40, ramp: "swat_slow" },
+    ],
+    feedback: [
+      "Goal: at least two flies alive on the fruit and laying eggs when time runs out.",
+      "Guests' shadows are harmless. Every jump away from one costs a meal.",
+    ],
+  },
+  medium: {
+    id: "medium",
+    title: "Level 2 — Citronella Row",
+    question: "Most of the food here is coated in citronella. Will the swarm eat it?",
+    duration: 70,
+    budget: 8,
+    energyDrain: 2.0,
+    hydrationDrain: 1.2,
+    needsWater: true,
+    fliesNeeded: 2,
+    portions: 2,
+    start: { x: 50, y: 250 },
+    fruit: { x: 735, y: 250, r: 45 },
+    foodLife: 12,
+    candles: [{ x: 300, y: 130 }, { x: 300, y: 370 }, { x: 430, y: 250 }, { x: 560, y: 150 }, { x: 560, y: 350 }],
+    obstacles: ["citronella candles: food beside them tastes bitter but is safe", "a fly swatter", "a little poisoned bait"],
+    phases: [
+      { from: 0, label: "Picnic edge" },
+      { from: 16, label: "Citronella row: coated food, the swatter comes out" },
+      { from: 50, label: "Last stretch to the fruit" },
+    ],
+    food: [
+      ...every(1, 16, 4).map((at) => ({ at, kind: "clean" as const, band: E })),
+      ...every(2, 20, 5).map((at) => ({ at, kind: "water" as const, band: E })),
+      ...every(14, 62, 2.5).map((at) => ({ at, kind: "citronella" as const, band: M })),
+      ...[30, 44, 58].map((at) => ({ at, kind: "poison_bitter" as const, band: M })),
+      ...[24, 34, 44, 54].map((at) => ({ at, kind: "water" as const, band: M })),
+      ...[38, 60].map((at) => ({ at, kind: "soda" as const, band: F })),
+      ...[52, 62].map((at) => ({ at, kind: "clean" as const, band: F })),
+      ...[50, 64].map((at) => ({ at, kind: "water" as const, band: F })),
+    ],
+    threats: [
+      ...every(4, 66, 7).map((at) => ({ at, ramp: "shadow" as RampName })),
+      { at: 22, ramp: "swat_slow" },
+      { at: 33, ramp: "swat_fast" },
+      { at: 45, ramp: "swat_slow" },
+      { at: 56, ramp: "swat_snap" },
+      { at: 65, ramp: "swat_fast" },
+    ],
+    feedback: [
+      "Goal: at least two flies alive on the fruit and laying eggs when time runs out.",
+      "Citronella-coated food is bitter to the fly (contact-repellent proxy through bitter taste cells) but safe. A few servings are poisoned bait: same taste.",
+    ],
+  },
   boss: {
     id: "boss",
-    title: "Boss — Across the Picnic",
+    title: "Level 3 — Mack’s Pest Control",
     question: "Can the fly get across the picnic to the fruit and stay alive while Mack fogs it?",
     duration: 75,
     budget: 8,
@@ -130,6 +213,9 @@ export const WAVES: Record<WaveId, WaveDef> = {
     swatDamage: 50,
     hydrationDrain: 1.2,
     needsWater: true,
+    fliesNeeded: 2,
+    portions: 2,
+    obstacles: ["Mack’s fog at the fruit", "poisoned fogger bait", "snap swats", "citronella candles"],
     start: { x: 50, y: 250 },
     fruit: { x: 735, y: 250, r: 45 },
     candles: [{ x: 330, y: 140 }, { x: 330, y: 360 }, { x: 470, y: 250 }],
@@ -174,6 +260,8 @@ export const WAVES: Record<WaveId, WaveDef> = {
 };
 
 export const WAVE_ORDER: WaveId[] = ["feeding", "threats", "combined", "boss"];
+/** The three levels the game ships, easiest first. */
+export const LEVELS: WaveId[] = ["easy", "medium", "boss"];
 
 const kindOf = (ramp: RampName): ThreatKind =>
   ramp === "shadow" ? "shadow" : ramp === "fog" ? "fog" : "swat";
@@ -204,6 +292,7 @@ export function buildSchedule(wave: WaveDef, seed: number): { servings: Serving[
       spawnAt: f.at + jitter,
       expiresAt: f.at + jitter + (wave.foodLife ?? 9),
       progress: 0,
+      portions: wave.portions ?? 1,
       status: "pending",
       refusedUntil: 0,
     };
@@ -219,6 +308,7 @@ export function buildSchedule(wave: WaveDef, seed: number): { servings: Serving[
       x: 0,
       y: 0,
       tracking: kind === "swat",
+      target: 0,
       exposed: false,
       jumped: false,
       status: "pending",

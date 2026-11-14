@@ -4,6 +4,11 @@ Written 2026-11-14 13:38 ET by the session that built the v6 core. Target: demo-
 demos 2:45. Repo: `~/Projects/fly-brain`, branch **`v6-core`** (main has only the scaffold).
 Evan owns the codebase; commits go on `v6-core` with **no Claude co-author line** (Evan's rule).
 
+## Status 14:35: swarm, three levels, score and brain map added after playtest feedback
+
+See "Swarm, levels, score" in `docs/CORE_CONTRACT.md`. `docs/DEMO.md` picks predate this and need redoing
+(`LEVEL=medium LIST=1 npx tsx scripts/tune.ts 7 4` lists winners). Not done: notebook video replay.
+
 ## Status 14:05: integration done
 
 The UI is wired to the core (`index.html` → `ui/dist/app.js`), decisions 1–4 are implemented, the boss

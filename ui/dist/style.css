@@ -49,3 +49,28 @@ button{border:1.5px solid #5b6a69;border-radius:4px;box-shadow:0 2px 0 #b8b49f;f
 .candle{width:13px;height:22px;background:#d3aa42;border:2px solid #5c3925;border-radius:3px;z-index:1}
 .candle:before{content:'';position:absolute;left:1px;top:-9px;width:7px;height:8px;border-radius:50% 50% 40% 40%;background:#c9768c}
 .event-line.legend{min-height:0;padding-top:0}
+
+/* ---- Swarm, levels, score, brain map ---- */
+.brainmap{width:100%;height:auto;display:block}
+.brainmap text{font:9px Arial;fill:#282923}
+.brainmap text.v{fill:#596b60;font-variant-numeric:tabular-nums}
+.brainmap text.w{font-weight:bold;fill:#435b70}
+.brainmap .fire{animation:fire .5s ease-in-out infinite alternate}
+.brainmap .flow{stroke-dashoffset:0;animation:flow .6s linear infinite}
+.brainmap path.flow:not([stroke-dasharray]){stroke-dasharray:6 3}
+@keyframes fire{from{stroke-width:1.2}to{stroke-width:4;stroke:#c9768c}}
+@keyframes flow{to{stroke-dashoffset:-9}}
+@media(prefers-reduced-motion:reduce){.brainmap .fire,.brainmap .flow{animation:none}}
+.replay-map{max-width:340px;float:right;margin:0 0 10px 20px;background:#eaf0e9;border:1px solid #b8c5be;border-radius:4px;padding:6px}
+.world .fly-token.small{width:30px;height:30px}
+.world .fly-token.dead{opacity:.28;filter:grayscale(1)}
+.haze{border-radius:50%;background:radial-gradient(circle,#e8d36a88 0%,#e8d36a44 55%,#e8d36a00 72%);z-index:0;pointer-events:none}
+.levels{margin:14px 0 8px}
+.levels button{padding:9px 6px}
+.score{font-size:15px;margin:0 0 6px}
+.score b{font-size:26px;font-variant-numeric:tabular-nums;color:#435b70}
+.score-table{margin-bottom:18px}
+.score-table td{padding:6px 0}
+.score-table small{color:#715d41}
+.brain{height:auto!important;max-height:none!important}
+.monitor{overflow:visible}

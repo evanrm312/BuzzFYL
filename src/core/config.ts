@@ -5,7 +5,7 @@
 import type { BuildConfig, Group, Policy } from "./types";
 
 export const CORE_VERSION = "core-0.6.0";
-export const CONTROLLER_VERSION = "body-4";
+export const CONTROLLER_VERSION = "body-5";
 export const LEARNING_RULE_VERSION = "event-step-1";
 export const NEURAL_SEED_POLICY = "replicate = hash(worldSeed, decisionKey) mod availableSeeds";
 
@@ -58,6 +58,11 @@ export const POLICY_THRESHOLD: Record<Policy, number> = {
 };
 
 export const SUGAR_COST = { 100: 0, 200: 2 } as const;
+/** Flies released on route levels, by `BuildConfig.swarm`. Each doubling costs SWARM_COST. 16 is the limit. */
+export const SWARM_SIZES = [2, 4, 8, 16] as const;
+export const SWARM_COST = 1;
+export const SWARM_LIMIT = 16; // a full swarm can be released but cannot win
+export const swarmSize = (cfg: { swarm?: number }) => SWARM_SIZES[Math.min(SWARM_SIZES.length - 1, Math.max(0, cfg.swarm ?? 0))];
 export const POLICY_COST: Record<Policy, number> = { frozen: 0, conservative: 0, responsive: 1 };
 
 /** Index of 1.0 (unmodified connectome) in each scale list. */
@@ -75,7 +80,8 @@ export function buildCost(cfg: BuildConfig, base: BuildConfig): number {
     Math.abs(cfg.loomGfLevel - base.loomGfLevel) +
     Math.max(0, SUGAR_COST[cfg.sugarHz] - SUGAR_COST[base.sugarHz]) +
     POLICY_COST[cfg.policy.bitter] +
-    POLICY_COST[cfg.policy.loomGf]
+    POLICY_COST[cfg.policy.loomGf] +
+    SWARM_COST * (cfg.swarm ?? 0)
   );
 }
 
